@@ -17,7 +17,7 @@ public class Motor extends ColorSensor{
 		motorD.setSpeed(400);  // Assigne 400deg/s au moteur droit
 	}
 	
-	public void TestMotor(String couleur) {
+	/*public void TestMotor(String couleur) {
 		//couleurLigne=couleur
 		motorG.forward();      // Le robot avance pendant 3sc
 		motorD.forward();
@@ -28,7 +28,7 @@ public class Motor extends ColorSensor{
 			motorD.setSpeed(0);
 			Delay.msDelay(750);	
 		}
-	}	
+	}*/	
 	
 	public void Straight() {   // Le robot avance
 		motorG.forward();
@@ -40,14 +40,16 @@ public class Motor extends ColorSensor{
 		motorD.backward();
 	}
 	
-	public void Right() {
+	public void Right() {      // Le robot tourne à droite
 		motorG.setSpeed(0);
 		motorD.setSpeed(500);
+		Delay.msDelay(750);    // Durée de la rotation : 0.75s
 	}
 	
-	public void Left() {
+	public void Left() {       // Le robot tourne à gauche
 		motorG.setSpeed(500);
 		motorD.setSpeed(0);
+		Delay.msDelay(750);
 	}
 	/*public static void main(String[] args) {  
 		new Motor();

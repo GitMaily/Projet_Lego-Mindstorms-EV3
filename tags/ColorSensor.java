@@ -57,13 +57,16 @@ public class ColorSensor {
 	}
 		
 }
-
-	public void getColor() {       // Fait appel à la méthode getMotor() de la class Motor, pour y transférer la chaine couleur
-		Motor Couleur=new Motor(); 
-		Couleur.TestMotor(couleur);
+	public String setColor() {  // Utile lors de son appel dans la class Movement
+		return couleur;
 	}
 
-	public static void main(String[] args) {  // Appelle la class ColorSensor, donc getColor(), faisant appel a la class Motor
+	/*public void getColor() {       // Fait appel à la méthode getMotor() de la class Motor, pour y transférer la chaine couleur
+		Movement Couleur=new Movement(); 
+		Couleur.Direction(couleur);
+	}
+
+	/*public static void main(String[] args) {  // Appelle la class ColorSensor, donc getColor(), faisant appel a la class Motor
 		new ColorSensor();
-	}
+	}*/
 }
