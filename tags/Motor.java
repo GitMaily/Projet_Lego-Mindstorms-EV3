@@ -5,15 +5,20 @@ import lejos.hardware.port.MotorPort;
 import lejos.utility.Delay;
 
 public class Motor extends ColorSensor{
+	
+	/**** LORS DE LA CREATION DE LA CLASS MOVEMENT, ENLEVER EXTENDS ET METHODE TESTMOTOR() ****/
 		
 	EV3LargeRegulatedMotor motorG = new EV3LargeRegulatedMotor(MotorPort.C);   // Assignation du moteur gauche au port C
 	EV3LargeRegulatedMotor motorD = new EV3LargeRegulatedMotor(MotorPort.A);   // Assignation du moteur droit au port A
+	//private String couleurLigne;
 	
-	
-	public void getMotor(String couleur) {
+	public Motor() {
 		motorG.setSpeed(400);  // Assigne 400deg/s au moteur gauche
-		motorD.setSpeed(400);
-			
+		motorD.setSpeed(400);  // Assigne 400deg/s au moteur droit
+	}
+	
+	public void TestMotor(String couleur) {
+		//couleurLigne=couleur
 		motorG.forward();      // Le robot avance pendant 3sc
 		motorD.forward();
 		Delay.msDelay(3000);
@@ -25,6 +30,25 @@ public class Motor extends ColorSensor{
 		}
 	}	
 	
+	public void Straight() {   // Le robot avance
+		motorG.forward();
+		motorD.forward();
+	}
+	
+	public void Back() {       // Le robot recule
+		motorG.backward();
+		motorD.backward();
+	}
+	
+	public void Right() {
+		motorG.setSpeed(0);
+		motorD.setSpeed(500);
+	}
+	
+	public void Left() {
+		motorG.setSpeed(500);
+		motorD.setSpeed(0);
+	}
 	/*public static void main(String[] args) {  
 		new Motor();
 	}*/
