@@ -7,13 +7,11 @@ import lejos.utility.Delay;
 
 public class ColorSensor {
 	
-	/******************* ESSAYER DE FAIRE INT COULEUR POUR METTRE SWITCH DANS MOTOR *********************/
-
 	//Attributs
 	EV3ColorSensor colorSensor=new EV3ColorSensor(SensorPort.S3); // Assigne le capteur couleur au port 3
 	SampleProvider colorProvider=colorSensor.getRGBMode();        // Déclaration du mode getRGB, et assignation de la couleur dans la variable
 	float[] colorSample=new float[colorProvider.sampleSize()];    // Déclaration du tableau de taille 3 pour stocker les 3 valeurs des couleurs d'une ligne
-	public String couleur;
+	private String couleur;
 	
 	//Constructeurs
 	public ColorSensor() {
@@ -57,16 +55,13 @@ public class ColorSensor {
 	}
 		
 }
-	public String setColor() {  // Utile lors de son appel dans la class Movement
+	public String getColor() {  // Retourne la valeur de la chaine couleur après son passage dans NewColor()
 		return couleur;
 	}
 
-	/*public void getColor() {       // Fait appel à la méthode getMotor() de la class Motor, pour y transférer la chaine couleur
-		Movement Couleur=new Movement(); 
-		Couleur.Direction(couleur);
+	public static void main(String[] args) {  // Appelle la class ColorSensor, donc getColor(), faisant appel a la class Motor
+		ColorSensor test=new ColorSensor();
+		test.NewColor();
+		test.getColor();
 	}
-
-	/*public static void main(String[] args) {  // Appelle la class ColorSensor, donc getColor(), faisant appel a la class Motor
-		new ColorSensor();
-	}*/
 }
