@@ -1,8 +1,8 @@
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.robotics.SampleProvider;
-import lejos.hardware.Device
-import lejos.hardware.motor.BaseRegulatedMotor
+import lejos.hardware.Device;
+import lejos.hardware.motor.EV3MediumRegulatedMotor;
 
 public class TouchSensor
 {
