@@ -41,6 +41,18 @@ public class Ultrasonicsensor {
 	       return dism ;
 	}
 	
+	public static void main (String []) {
+		
+		Ultrasonicsensor s = new Ultrasonicsensor(4);
+		if (s.detect()) {
+			system.out.println("robot detecte");
+			System.out.println("la disctance est " +s.distance());
+		}
+		
+		
+		
+	}
+	
 	
 	
 
