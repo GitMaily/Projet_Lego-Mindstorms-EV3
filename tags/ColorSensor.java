@@ -11,7 +11,7 @@ public class ColorSensor {
 	EV3ColorSensor colorSensor=new EV3ColorSensor(SensorPort.S3); // Assigne le capteur couleur au port 3
 	SampleProvider colorProvider=colorSensor.getRGBMode();        // Déclaration du mode getRGB, et assignation de la couleur dans la variable
 	float[] colorSample=new float[colorProvider.sampleSize()];    // Déclaration du tableau de taille 3 pour stocker les 3 valeurs des couleurs d'une ligne
-	private String couleur;
+	public String couleur;
 	
 	//Constructeurs
 	public ColorSensor() {
@@ -59,9 +59,9 @@ public class ColorSensor {
 		return couleur;
 	}
 
-	public static void main(String[] args) {  // Appelle la class ColorSensor, donc getColor(), faisant appel a la class Motor
+	/*!public static void main(String[] args) {  // Appelle la class ColorSensor, donc getColor(), faisant appel a la class Motor
 		ColorSensor test=new ColorSensor();
 		test.NewColor();
 		test.getColor();
-	}
+	}*/
 }
