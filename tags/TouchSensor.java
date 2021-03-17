@@ -25,5 +25,12 @@ public class TouchSensor
        else
            return true;
     }
+    public static void main(String []) {
+    	
+    	TouchSensor s = new TouchSensor(2);
+    	if(s.estActif()) {
+    		System.out.println("palets detecte");
+    	}
+    }
 
 }
