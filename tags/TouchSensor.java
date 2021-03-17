@@ -1,6 +1,8 @@
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.robotics.SampleProvider;
+import lejos.hardware.Device
+import lejos.hardware.motor.BaseRegulatedMotor
 
 public class TouchSensor
 {
@@ -28,8 +30,18 @@ public class TouchSensor
     public static void main(String []) {
     	
     	TouchSensor s = new TouchSensor(2);
-    	if(s.estActif()) {
-    		System.out.println("palets detecte");
+    	
+    	EV3MediumRegulatedMotor m1 = new EV3MediumRegulatedMotor(A);
+    	EV3MediumRegulatedMotor m2 = new EV3MediumRegulatedMotor(B);
+    	
+    	while(!estActif) {
+    		m1.forward();
+    		m2.forward();
+    	}
+    	
+    	m1.stop();
+    	m2.stop();
+
     	}
     }
 
