@@ -11,37 +11,52 @@ public class Motor {
 	
 	public Motor() {
 		motorG.setSpeed(400);  // Assigne 400deg/s au moteur gauche
-		motorD.setSpeed(400);  // Assigne 400deg/s au moteur droit
+		motorD.setSpeed(402);  // Assigne 400deg/s au moteur droit
 	}
 	
-	public void Straight() {   // Le robot avance
+	public void Straight(int s) {   // Le robot avance
 		motorG.forward();
 		motorD.forward();
+		Delay.msDelay(s);
 	}
 	
 	public void Back() {       // Le robot recule
 		motorG.backward();
 		motorD.backward();
+		Delay.msDelay(1500);
 	}
 	
 	public void Right() {      // Le robot tourne à droite
-		motorG.setSpeed(0);
-		motorD.setSpeed(500);
+		motorG.forward();      // motorG.rotate(180);
+		motorD.stop();         // motorD.rotate(0);
 		Delay.msDelay(750);    // Durée de la rotation : 0.75s
 	}
 	
 	public void Left() {       // Le robot tourne à gauche
-		motorG.setSpeed(500);
-		motorD.setSpeed(0);
+		motorG.stop();
+		motorD.forward();
 		Delay.msDelay(750);
 	}
+	
+	public void TurnAround() { // Le robot fait demi-tour
+		motorG.forward();      // .rotate(180);
+		motorD.backward();     // .rotate(180);
+		Delay.msDelay(900);
+	}
+	
+	public void Stop() { // Le robot fait demi-tour
+		motorG.stop();
+		motorD.stop();
+	}	
+	
 	public static void main(String[] args) {  
 		Motor test=new Motor();
-		test.Straight();
-		Delay.msDelay(5000);
-		test.Left();
-		test.Right();
-		test.Back();
-		Delay.msDelay(3000);
+		test.Straight(1000);
+		test.TurnAround();
+		test.Straight(1000);
+		//test.Right();
+		//test.Left();
+		//test.Back();
+		//Delay.msDelay(1500);
 	}
 }

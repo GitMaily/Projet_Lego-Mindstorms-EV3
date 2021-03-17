@@ -2,26 +2,25 @@ package codesource;
 
 public class Movement {
 	
-	// Attribut
-	private String couleur;
+	// Attributs
 	ColorSensor couleurLigne=new ColorSensor(); // Déclare une variable de la class Color Sensor
 	Motor motor=new Motor();                    // Déclare une variable de la class Motor
 	
-	// Constructeur
-	public Movement() {
-		couleur=couleurLigne.getColor();        // Assigne la chaine couleur a la valeur retournée dans setColor(), soit la couleur de la ligne
-	}
-	
 	// Méthode
 	public void Direction() {
-		/*if(couleur=="JAUNE") {  // TEST : Lorsque le robot est sur une ligne jaune, il va tout droit
-			motor.Straight();   // but : Vérifier que les class ColorSensor, Motor et Movement soient bien liées
-		}*/
-		System.out.println(couleur);
+		String couleur=couleurLigne.getColor(); // Assigne la couleur de la ligne de la class ColorSensor à couleur
+		while(couleur.equals("ROUGE")) {        // Tant que la couleur est rouge, le robot va tout droit 
+			motor.Straight(3000);
+		}
+		if(couleur.equals("BLEU")) {
+			motor.TurnAround();
+		}
 	}
 
 	public static void main(String[] args) {
-		Movement test=new Movement();
-		test.Direction();
+		ColorSensor col=new ColorSensor();
+		Movement mov=new Movement();
+		col.NewColor();                         // Appelle la méthode NewColor() pour obtenir la couleur
+		mov.Direction();
 	}
 }
