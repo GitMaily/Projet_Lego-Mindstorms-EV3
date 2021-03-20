@@ -11,7 +11,7 @@ public class Movement {
 	
 	
 	// Méthode
-	public void DirectionJaune() {
+	public void Direction() {
 		
 		if(pres && couleur.equals("NOIR")) {
 			motor.TurnAround();
@@ -32,6 +32,50 @@ public class Movement {
 		}
 	}
 
+	public void DirectionJaune() {
+		int pal=0;
+		while(pal==0) {
+			// Retour dans le camp d'origine
+			if(pres && ((couleur.equals("JAUNE")) || (couleur.equals("ROUGE")))) {
+				motor.TurnAround();
+				while(!couleur.equals("BLANC")) {
+					motor.Straight(3000);
+					break;}}
+			
+			if(pres && couleur.equals("NOIR")) {
+				motor.Straight(5000);
+				while(!couleur.equals("BLANC")) {
+					motor.Straight(3000);
+					break;}}
+			
+			while(couleur.equals("JAUNE")) {        // Tant que la couleur est jaune, le robot va tout droit 
+				motor.Straight(3000);
+				if(couleur.equals("VERT")) {
+					motor.Left();
+					motor.Straight(3000);
+					motor.Left();
+					break;}}
+			
+			while(couleur.equals("NOIR")) {        // Tant que la couleur est noire, le robot va tout droit 
+				motor.Straight(3000);
+				if(couleur.equals("BLEU")) {
+					motor.Right();
+					motor.Straight(3000);
+					motor.Right();
+					break;}}
+			
+			while(couleur.equals("ROUGE")) {        // Tant que la couleur est rouge, le robot va tout droit 
+				motor.Straight(6000);
+				break;}
+			
+			if(couleur.equals("BLANC")) {
+				pal=1;
+			}
+	
+		}
+		motor.Stop();
+	}		
+	
 	public static void main(String[] args) {
 		ColorSensor col=new ColorSensor();
 		Movement mov=new Movement();
