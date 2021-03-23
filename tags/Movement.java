@@ -2,84 +2,28 @@ package codesource;
 
 public class Movement {
 	
-	// Attributs
-	ColorSensor couleurLigne=new ColorSensor(); // Déclare une variable de la class Color Sensor
-	Motor motor=new Motor();                    // Déclare une variable de la class Motor
+	Motor motor=new Motor();
+	ColorSensor col=new ColorSensor();
 	TouchSensor touch=new TouchSensor();
-	String couleur=couleurLigne.getColor(); // Assigne la couleur de la ligne de la class ColorSensor à couleur
-	boolean pres=touch.estActif();
+	Ramassage ram=new Ramassage();
+	UltraSonicSensor us=new UltraSonicSensor();
 	
-	
-	// Méthode
 	public void Direction() {
+		col.NewColor();
+		String couleur=col.getColor();
 		
-		if(pres && couleur.equals("NOIR")) {
-			motor.TurnAround();
-			while(!couleur.equals("BLANC")) {
-				motor.Straight(3000);
-			}
+		while(!touch.estActif() && couleur.equals("JAUNE")) { // le robot avance tant que la couleur de la ligne est jaune et qu'il n'y a pas de palet
+			motor.Straight();
 		}
-		
-		while(couleur.equals("ROUGE")) {        // Tant que la couleur est rouge, le robot va tout droit 
-			motor.Straight(3000);
-			if(couleur.equals("NOIR")) {
-				motor.Right();
-				break;
-			}	
-		}
-		while(couleur.equals("NOIR")) {
-			motor.Straight(1500);
+		while(touch.estActif() && couleur.equals("JAUNE")) {  // S'il détecte un palet, il s'arrete, ferme puis ouvre ses bras
+			motor.Stop();
+			ram.carry();
+			ram.drop();
 		}
 	}
-
-	public void DirectionJaune() {
-		int pal=0;
-		while(pal==0) {
-			// Retour dans le camp d'origine
-			if(pres && ((couleur.equals("JAUNE")) || (couleur.equals("ROUGE")))) {
-				motor.TurnAround();
-				while(!couleur.equals("BLANC")) {
-					motor.Straight(3000);
-					break;}}
-			
-			if(pres && couleur.equals("NOIR")) {
-				motor.Straight(5000);
-				while(!couleur.equals("BLANC")) {
-					motor.Straight(3000);
-					break;}}
-			
-			while(couleur.equals("JAUNE")) {        // Tant que la couleur est jaune, le robot va tout droit 
-				motor.Straight(3000);
-				if(couleur.equals("VERT")) {
-					motor.Left();
-					motor.Straight(3000);
-					motor.Left();
-					break;}}
-			
-			while(couleur.equals("NOIR")) {        // Tant que la couleur est noire, le robot va tout droit 
-				motor.Straight(3000);
-				if(couleur.equals("BLEU")) {
-					motor.Right();
-					motor.Straight(3000);
-					motor.Right();
-					break;}}
-			
-			while(couleur.equals("ROUGE")) {        // Tant que la couleur est rouge, le robot va tout droit 
-				motor.Straight(6000);
-				break;}
-			
-			if(couleur.equals("BLANC")) {
-				pal=1;
-			}
-	
-		}
-		motor.Stop();
-	}		
 	
 	public static void main(String[] args) {
-		ColorSensor col=new ColorSensor();
-		Movement mov=new Movement();
-		col.NewColor();                         // Appelle la méthode NewColor() pour obtenir la couleur
-		mov.DirectionJaune();
+		Movement test=new Movement();
+		test.Direction();
 	}
 }
