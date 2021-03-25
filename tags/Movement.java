@@ -9,39 +9,70 @@ public class Movement {
 	TouchSensor touch=new TouchSensor();
 	Ramassage ram=new Ramassage();
 	UltraSonicSensor us=new UltraSonicSensor();
+	private int NbPalet=1;  // Nombre de palet sur le terrain
 	
-	public void Direction() {
+	public void DirectionJaune() {
+		
 		col.NewColor();
 		String couleur=col.getColor();
 		boolean pal=false;
 		
 		//ram.drop();
 		
-		while(!touch.estActif() && couleur.equals("JAUNE")) { // le robot avance tant que la couleur de la ligne est jaune et qu'il n'y a pas de palet
-			motor.Straight();
-		}
-		while(touch.estActif() && couleur.equals("JAUNE")) {  // S'il détecte un palet, il s'arrete, ferme ses bras et se retourne
-			motor.Stop();
-			ram.carry();
-			Delay.msDelay(700);
-			motor.TurnAround();
-			pal=true;
-		}
-		while(pal && !couleur.equals("BLANC")) {
-			motor.Straight();
-			if(couleur.equals("BLANC")) {
-				break;
+		while(NbPalet!=0) {
+		
+			while(!touch.estActif() && (couleur.equals("JAUNE") || couleur.equals("BLEU") || couleur.equals("NOIR")) && !couleur.equals("VERT")) {
+				couleur=col.getColor();
+				motor.Straight();
 			}
-		}
-		if(couleur.equals("BLANC")) {
-			motor.Stop();
-			ram.drop();
-			motor.Back();
+			if(couleur.equals("VERT")) {
+				//motor.Stop();
+				motor.Left();
+				//motor.Stop();
+				motor.Straight();
+				Delay.msDelay(2000);
+				motor.Left();
+			}
+			if(touch.estActif() && (couleur.equals("JAUNE") || couleur.equals("ROUGE"))) {  // S'il détecte un palet, il s'arrete, ferme ses bras et se retourne
+				motor.Stop();
+				ram.carry();
+				Delay.msDelay(700);
+				motor.TurnAround();
+				motor.Stop();
+				pal=true;
+			}
+			if(touch.estActif() && couleur.equals("NOIR")) {  // S'il détecte un palet, il s'arrete et ferme ses bras
+				motor.Stop();
+				ram.carry();
+				Delay.msDelay(700);
+				pal=true;
+			}
+			if(touch.estActif() && (couleur.equals("VERT") || couleur.equals("BLEU"))) {  
+				motor.Stop();
+				ram.carry();
+				Delay.msDelay(700);
+				motor.Left();
+				motor.Stop();
+				pal=true;
+			}
+			while(pal && !couleur.equals("BLANC")) {
+				couleur=col.getColor();
+				motor.Straight();
+				if(couleur.equals("BLANC")) {
+					motor.Stop();
+					ram.drop();
+					motor.Back();
+					motor.Stop();
+					motor.TurnAround();
+					NbPalet-=1;
+					break;
+				}
+			}
 		}
 	}
 	
 	public static void main(String[] args) {
 		Movement test=new Movement();
-		test.Direction();
+		test.DirectionJaune();
 	}
 }
