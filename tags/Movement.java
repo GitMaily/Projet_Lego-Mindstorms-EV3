@@ -11,13 +11,11 @@ public class Movement {
 	UltraSonicSensor us=new UltraSonicSensor();
 	private int NbPalet=1;  // Nombre de palet sur le terrain
 	
-	public void DirectionJaune() {
+	public void DirectionJaune() { // Retour au camp d'origine
 		
 		col.NewColor();
 		String couleur=col.getColor();
 		boolean pal=false;
-		
-		//ram.drop();
 		
 		while(NbPalet!=0) {
 		
@@ -30,8 +28,23 @@ public class Movement {
 				motor.Left();
 				//motor.Stop();
 				motor.Straight();
-				Delay.msDelay(2000);
+				Delay.msDelay(2000); // Mettre le temps nécessaire pour aller jusqu'au croisement vert/noir
+			}
+			if(couleur.equals("VERT") && !touch.estActif()) {
 				motor.Left();
+			}
+			while(couleur.equals("NOIR") && !couleur.equals("BLEU") && !touch.estActif()) {
+				couleur=col.getColor();
+				motor.Straight();
+			}
+			if(!touch.estActif() && (couleur.equals("BLEU"))){
+				motor.Stop();
+				motor.Right();
+				motor.Straight();
+				Delay.msDelay(2000);
+			}
+			if(!touch.estActif() && (couleur.equals("BLEU"))){
+				motor.Right();
 			}
 			if(touch.estActif() && (couleur.equals("JAUNE") || couleur.equals("ROUGE"))) {  // S'il détecte un palet, il s'arrete, ferme ses bras et se retourne
 				motor.Stop();
@@ -67,6 +80,10 @@ public class Movement {
 					NbPalet-=1;
 					break;
 				}
+			}
+			couleur=col.getColor();
+			if(couleur.equals("BLANC")) {
+				break;
 			}
 		}
 	}
