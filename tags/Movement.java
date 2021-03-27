@@ -3,12 +3,12 @@ package codesource;
 import lejos.utility.Delay;
 
 public class Movement {
-	
+	/** Le robot apres avoir carry, s'arrete affiche couleur, tourne et avance en affichant jaune jaune jaune .... **/
 	Motor motor=new Motor();
 	ColorSensor col=new ColorSensor();
 	TouchSensor touch=new TouchSensor();
 	Ramassage ram=new Ramassage();
-	UltraSonicSensor us=new UltraSonicSensor();
+	UltraSonicSensor ul=new UltraSonicSensor();
 	private int NbPalet=1;  // Nombre de palet sur le terrain
 	
 	public void DirectionJaune() { // Retour au camp d'origine
@@ -26,7 +26,7 @@ public class Movement {
 			if(couleur.equals("VERT")) {
 				//motor.Stop();
 				motor.Left();
-				//motor.Stop();
+		 		//motor.Stop();
 				motor.Straight();
 				Delay.msDelay(2000); // Mettre le temps nécessaire pour aller jusqu'au croisement vert/noir
 			}
@@ -69,6 +69,7 @@ public class Movement {
 				pal=true;
 			}
 			while(pal && !couleur.equals("BLANC")) {
+				col.NewColor();
 				couleur=col.getColor();
 				motor.Straight();
 				if(couleur.equals("BLANC")) {
@@ -85,6 +86,32 @@ public class Movement {
 			if(couleur.equals("BLANC")) {
 				break;
 			}
+		}
+	}
+	
+	public void EvitementDroit() {
+		double dist=ul.distance();
+		while(dist>0.15) {
+			dist=ul.distance();
+			motor.Straight();
+		}
+		motor.Stop();
+		dist=ul.distance();
+		if(dist<=0.15) {
+			motor.Back();
+			motor.Stop();
+			motor.Right();
+			motor.Straight();
+			Delay.msDelay(1800);
+			motor.Left();
+			motor.Straight();
+			Delay.msDelay(3600);
+			motor.Left();
+			motor.Straight();
+			Delay.msDelay(1400);
+			motor.Right();
+			motor.Straight();
+			Delay.msDelay(400);
 		}
 	}
 	
