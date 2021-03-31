@@ -112,6 +112,142 @@ public class Movement {
 		}
 	}
 	
+	public void Midel () {
+		
+		String couleur = col.getColor();
+		int r = 1;   // un indice sur direction du robot , pour pouvoir aller au camp adverse 		
+		while(!touch.estActif()) {
+			
+		
+				while(couleur.equals("Noir")) {                  //avancer jusqu'à  la ligne d'une autre couleur 
+						motor.Straight();							
+					
+							}
+						if(couleur.equals("Vert")) {						// * si la ligne qu'il croise et vert , il continus jusqu'a la ligne bleu						
+								do {
+										motor.Straight(); 
+									}
+								while(!couleur.equals("Bleu"));			
+								
+								motor.Left();                         // le robot tourne à gauche	
+								r = 2;								// on ajuste l'indice de retour
+								
+								while(couleur.equals("Bleu")) {				//  il continus jusqu'à la fin de la ligne bleu
+										motor.Straight();
+											}			
+								motor.Left(1125);							//   il tourne à gauche de 135°			
+								while(!couleur.equals("Rouge")) {			//   il cherche la ligne rouge
+										motor.Straight();
+												}			
+								motor.Right(375);							// quand il la trouve il ce tourne de 45° pour la suivre	
+								r = 4;
+								
+								while(!couleur.equals("Vert")) {				// le robot avance jusqu'à la ligne vert
+									motor.Straight();
+								}			
+								motor.Left();								// il se tourne pour suivre la ligne vert 
+								r = 3;
+								while(couleur.equals("Vert")) {				// il avance sur la ligne vert jusqu'au bout 
+									motor.Straight();
+								}
+								motor.Left(1125);							// il se retoune de 135°			
+								while(!couleur.equals("Jaune")) {			// le robot cherche la ligne jaune 
+									motor.Staright();
+								}
+								
+								motor.Right(375);                             // il se tourne pour la suivre	
+								r = 1 ;
+								
+								while(!couleur.equals("Blanc")) {			// le robot suit la ligne jaune jusqu'à la ligne blanche 
+									motor.Straight();
+								}			
+								motor.stop();								// le robot s'arrete quand il trouve la ligne blache
+						}
+						else {
+							do {
+								motor.Straight(); 
+							}
+							while(!couleur.equals("Vert"));	
+							
+							motor.Left();
+							r = 2;
+							
+							while(couleur.equals("Vert")) {
+								motor.Straight();
+							}				
+							motor.Left(1125);				
+							while(!couleur.equals("Jaune")) {
+								motor.Straight();
+							}	
+							
+							motor.Right(375);
+							r = 4;
+							
+							while(!couleur.equals("Bleu")) {
+								motor.Straight();
+							}	
+							
+							motor.Left();
+							r = 3;
+							
+							while(couleur.equals("Bleu")) {
+							motor.Straight();
+							}
+							
+							motor.Left(1125);	
+							
+							while(!couleur.equals("Rouge")) {
+								motor.Staright();
+							}
+							
+							motor.Right(375);
+							r = 1;
+							
+							while(!couleur.equals("Blanc")) {
+								motor.Straight();
+							}			
+							motor.stop();	
+				}
+		}
+		ram.carry();           // ramasser la palet 			
+		retour(r);
+	}
+	
+	public void retour(int r) {
+		String couleur = col.getColor();
+		switch (r) {
+		
+		case 1 : 
+			while(!couleur.equals("Blanc")) {
+				motor.straight();
+			}
+			motor.stop();
+			ram.drop();			
+		case 2 :                                                 // 2 :il faut tourner à droite
+			motor.Left();
+			while(!couleur.equals("Blanc")) {
+				motor.straight();
+			}
+			motor.stop();
+			ram.drop();			
+		case 3 :												// il faut tourner à gauche
+			motor.Right();
+			while(!couleur.equals("Blanc")) {
+				motor.straight();
+			}
+			motor.stop();
+			ram.drop();			
+		case 4 :											 // il faut faire demi-tour
+			motor.TournAround();
+			while(!couleur.equals("Blanc")) {
+				motor.straight();
+			}
+			motor.stop();
+			ram.drop();
+			
+		}
+	}
+	
 	public void EvitementDroit() {  // MODE COMPETITION
 		double dist=ul.distance();
 		while(dist>0.15) {

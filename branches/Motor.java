@@ -37,13 +37,22 @@ public class Motor {
 		motorD.stop();         
 		Delay.msDelay(700);    // Durée de la rotation : 0.75s
 	}
+	public void Right(long d) {
+		motorG.forward();      
+		motorD.stop();         
+		Delay.msDelay(d);
+	}
 	
 	public void Left() {       // Le robot tourne à gauche
 		motorG.stop();
 		motorD.forward();
 		Delay.msDelay(700);
 	}
-	
+	public void Left(long d) {       
+		motorG.stop();
+		motorD.forward();
+		Delay.msDelay(d);
+	}
 	public void TurnAround() { // Le robot fait demi-tour
 		motorG.backward();      // .rotate(180);
 		motorD.forward();     // .rotate(180);
