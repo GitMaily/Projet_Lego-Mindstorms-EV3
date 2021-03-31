@@ -55,6 +55,13 @@ public class ColorSensor {
 	}
 		return couleur;
 }
+	public boolean lookFor(String couleur) {
+		while(!color.equals(couleur)) {
+			motor.Straight();
+		}
+		motor.stop();
+		return true ;
+	}
 	/*public String getColor() {  // Retourne la valeur de la chaine couleur après son passage dans NewColor()
 		return couleur;
 	}
