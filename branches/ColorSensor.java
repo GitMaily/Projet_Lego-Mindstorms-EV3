@@ -3,7 +3,6 @@ package codesource;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.SampleProvider;
-import lejos.utility.Delay;
 
 public class ColorSensor {
 	
@@ -23,38 +22,64 @@ public class ColorSensor {
 	
 	//Méthodes
 	public String getColor() {
-		if((colorSample[0]>0.27) && (colorSample[0]<0.31) && (colorSample[1]>0.38) && (colorSample[1]<0.42) && (colorSample[2]>0.20) && (colorSample[2]<0.24)){
-			System.out.println("BLANC"); // Affiche BLANC à l'écran lorsque le robot est sur une ligne de cette couleur
-			couleur="BLANC";             // Stock la chaine "BLANC" dans la variable couleur
-			Delay.msDelay(2000);  }      // Latence de 2sc, permettant d'afficher le message à l'écran pendant ce temps
+		
+		colorProvider.fetchSample(colorSample,0);  // MISE A JOUR DES VALEURS DE LA COULEUR
+		
+		if((colorSample[0]>0.20) && (colorSample[0]<0.31) && (colorSample[1]>0.29) && (colorSample[1]<0.42) && (colorSample[2]>0.18) && (colorSample[2]<0.24)){
+			System.out.println("BLANC"); 
+			couleur="BLANC"; }
 		  
 		if((colorSample[0]>0.01) && (colorSample[0]<0.07) && (colorSample[1]>0.15) && (colorSample[1]<0.21) && (colorSample[2]>0.09) && (colorSample[2]<0.15)){
-			System.out.println("BLEU"); 
-			couleur="BLEU";
-			Delay.msDelay(2000);  }
+			System.out.println("BLEU"); 		// Affiche BLEU à l'écran pendant 1sc lorsque le robot est sur une ligne de cette couleur
+			couleur="BLEU";	}					// Remplace le contenu de couleur, de l'indice 0 à 5, par BLEU
 		
 		if((colorSample[0]>0.01) && (colorSample[0]<0.06) && (colorSample[1]>0.01) && (colorSample[1]<0.06) && (colorSample[2]>0.01) && (colorSample[2]<0.05)){
 			System.out.println("NOIR"); 
-			couleur="NOIR";
-			Delay.msDelay(2000);  }
+			couleur="NOIR"; }
 		
 		if((colorSample[0]>0.03) && (colorSample[0]<0.09) && (colorSample[1]>0.17) && (colorSample[1]<0.23) && (colorSample[2]>0.01) && (colorSample[2]<0.07)){
 			System.out.println("VERT"); 
-			couleur="VERT";
-			Delay.msDelay(2000);  }
+			couleur="VERT"; }
 		
 		if((colorSample[0]>0.22) && (colorSample[0]<0.27) && (colorSample[1]>0.29) && (colorSample[1]<0.35) && (colorSample[2]>0.02) && (colorSample[2]<0.08)){
 			System.out.println("JAUNE"); 
-			couleur="JAUNE";
-			Delay.msDelay(2000);  }
+			couleur="JAUNE"; }
 		
 		if((colorSample[0]>0.13) && (colorSample[0]<0.19) && (colorSample[1]>0.02) && (colorSample[1]<0.08) && (colorSample[2]>0.01) && (colorSample[2]<0.05)){
 			System.out.println("ROUGE"); 
-			couleur="ROUGE";
-			Delay.msDelay(2000);
-	}
+			couleur="ROUGE"; }
+		
+		if((colorSample[0]>0.10) && (colorSample[0]<0.14) && (colorSample[1]>0.15) && (colorSample[1]<0.19) && (colorSample[2]>0.07) && (colorSample[2]<0.11)){
+			System.out.println("GRIS");
+			couleur="GRIS"; }
+		
+		if((colorSample[0]==0) && (colorSample[1]==0) && (colorSample[2]==0)){
+			System.out.println("null");
+			couleur="null"; }
+		
 		return couleur;
-}
+	}
+	/*	public void moveColor(String couleur) {
+			
+			if (couleur.equals("ROUGE")) {
+				
+				motor.Straight();
+				System.out.println("Test");
+				Delay.msDelay(1000);
+				
+			}
+			else if (couleur.equals("BLEU")){
+				motor.Left();
+				System.out.println("Test");
+				Delay.msDelay(1000);
+			}
+		
+			else {
+				System.out.println("Erreur");
+			}
+		}
+		
+
 	public boolean lookFor(String couleur) {
 		while(!color.equals(couleur)) {
 			motor.Straight();
@@ -64,12 +89,9 @@ public class ColorSensor {
 	}
 	/*public String getColor() {  // Retourne la valeur de la chaine couleur après son passage dans NewColor()
 		return couleur;
-	}
+	}*/
 
 	/*public static void main(String[] args) {  // Appelle la class ColorSensor, donc getColor(), faisant appel a la class Motor
 		new ColorSensor();
-		//ColorSensor test=new ColorSensor();
-		//test.NewColor();
-		//test.getColor();
 	}*/
 }
