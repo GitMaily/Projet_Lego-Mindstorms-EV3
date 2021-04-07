@@ -18,10 +18,10 @@ public class Motor {
 	}
 	
 	public void Straight() {   // Le robot avance
-		motorG.startSynchronization();
+		motorG.startSynchronization();	// DEBUT SYNCHRONISATION DES 2 ROUES
 		motorG.forward();
 		motorD.forward();
-		motorG.endSynchronization();
+		motorG.endSynchronization();	// FIN SYNCHRONISATION DES 2 ROUES	
 	}
 	
 	public void Back() {       // Le robot recule
@@ -35,12 +35,13 @@ public class Motor {
 	public void Right() {      // Le robot tourne à droite
 		motorG.forward();      
 		motorD.stop();         
-		Delay.msDelay(700);    // Durée de la rotation : 0.75s
+		Delay.msDelay(700);    // Durée de la rotation : 0.7s
 	}
-	public void Right(long d) {
+	
+	public void Right(int i) {      // Le robot tourne à droite
 		motorG.forward();      
 		motorD.stop();         
-		Delay.msDelay(d);
+		Delay.msDelay(i);    
 	}
 	
 	public void Left() {       // Le robot tourne à gauche
@@ -48,15 +49,17 @@ public class Motor {
 		motorD.forward();
 		Delay.msDelay(700);
 	}
-	public void Left(long d) {       
+	
+	public void Left(int i) {       
 		motorG.stop();
 		motorD.forward();
-		Delay.msDelay(d);
+		Delay.msDelay(i);
 	}
+	
 	public void TurnAround() { // Le robot fait demi-tour
 		motorG.backward();      // .rotate(180);
 		motorD.forward();     // .rotate(180);
-		Delay.msDelay(900);
+		Delay.msDelay(970);
 	}
 	
 	public void Stop() { // Le robot fait demi-tour
@@ -66,15 +69,9 @@ public class Motor {
 		motorG.endSynchronization();
 	}	
 	
-	/*public static void main(String[] args) {  
+	public static void main(String[] args) {  
 		Motor test=new Motor();
 		test.Straight();
 		Delay.msDelay(2000);
-		test.TurnAround();
-		test.Straight();
-		//test.Right();
-		//test.Left();
-		//test.Back();
-		//Delay.msDelay(1500);
-	}*/
+	}
 }

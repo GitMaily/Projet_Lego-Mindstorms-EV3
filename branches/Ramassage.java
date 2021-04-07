@@ -17,12 +17,12 @@ public class  Ramassage {
     public void carry() {        // la fonction carry() serre la pince en fesant tourner le moteur en avant
 
         motorR.backward();
-        Delay.msDelay(1500);
+        Delay.msDelay(1400);
     }
 
     public void drop() {        // drope() fait l'inversse 
 
         motorR.forward();
-        Delay.msDelay(1500);
+        Delay.msDelay(600);
     }
 }
