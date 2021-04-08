@@ -11,11 +11,18 @@ public class Motor {
 	RegulatedMotor motorD = new EV3LargeRegulatedMotor(MotorPort.A);   // Assignation du moteur droit au port A
 	
 	public Motor() {
-		motorG.setSpeed(400);  // Assigne 400deg/s au moteur gauche
+		motorG.setSpeed(415);  // Assigne 400deg/s au moteur gauche
 		motorD.setSpeed(402);  // Assigne 400deg/s au moteur droit
 		motorG.synchronizeWith(new RegulatedMotor[] {motorD});
 		//motorG.startSynchronization();
 	}
+	
+	public void setMotorGSpeed(int s) {
+        motorG.setSpeed(s);
+    }
+    public void setMotorDSpeed(int s) {
+        motorD.setSpeed(s);
+    }
 	
 	public void Straight() {   // Le robot avance
 		motorG.startSynchronization();	// DEBUT SYNCHRONISATION DES 2 ROUES
@@ -38,10 +45,10 @@ public class Motor {
 		Delay.msDelay(700);    // Durée de la rotation : 0.7s
 	}
 	
-	public void Right(int i) {      // Le robot tourne à droite
+	public void Right(double i) {      // Le robot tourne à droite
 		motorG.forward();      
 		motorD.stop();         
-		Delay.msDelay(i);    
+		Delay.msDelay((long)i);    
 	}
 	
 	public void Left() {       // Le robot tourne à gauche
@@ -50,10 +57,10 @@ public class Motor {
 		Delay.msDelay(700);
 	}
 	
-	public void Left(int i) {       
-		motorG.stop();
+	public void Left(double i) {       
+		motorG.setSpeed(300);
 		motorD.forward();
-		Delay.msDelay(i);
+		Delay.msDelay((long) i);
 	}
 	
 	public void TurnAround() { // Le robot fait demi-tour
