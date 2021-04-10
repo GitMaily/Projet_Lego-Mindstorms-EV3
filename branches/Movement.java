@@ -11,7 +11,7 @@ public class Movement {
 	UltraSonicSensor ul=new UltraSonicSensor();
 	
 	private int NbPalet=1;  // CHOIX DU NOMBRE DU PALET SUR LE TERRAIN
-	private boolean CampAdverse=false; // SI TRUE, ALORS RETOUR AU CAMP D'ORIGINE
+	private boolean CampAdverse=true; // SI TRUE, ALORS RETOUR AU CAMP D'ORIGINE
 	
 	public static void line() {
     	
@@ -143,12 +143,12 @@ public class Movement {
 		String coul=couleur.getColor();
 		boolean pal=false;
 		
-		while(NbPalet!=0) {
+		while(!touch.estActif() && (coul.equals("JAUNE") || coul.equals("BLEU") || coul.equals("NOIR") || coul.equals("GRIS"))) {
+			motor.Straight();
+			coul=couleur.getColor(); // A EFFECTUER SEULEMENT AU DEBUT, POUR EVITER ERREUR APRES
+		}
 		
-			while(!touch.estActif() && (coul.equals("JAUNE") || coul.equals("BLEU") || coul.equals("NOIR"))) {
-				motor.Straight();
-				coul=couleur.getColor();
-			}
+		while(NbPalet!=0) {
 			coul=couleur.getColor();
 			if(coul.equals("VERT") && !touch.estActif()) {
 				motor.Left();
@@ -188,6 +188,12 @@ public class Movement {
 					motor.TurnAround();
 					motor.Stop();
 				}
+				if(CampAdverse && NbPalet>1) {	// SE DECALE DE LA LIGNE POUR EVITER AUTRES PALETS
+					motor.Left(200);
+					motor.Straight();
+					Delay.msDelay(700);
+					motor.Right(200);
+				}
 				pal=true;
 			}
 			coul=couleur.getColor();
@@ -206,6 +212,8 @@ public class Movement {
 				motor.Stop();
 				ram.carry();
 				Delay.msDelay(700);
+				motor.Straight();
+				Delay.msDelay(300);
 				if(!CampAdverse) {
 					motor.Left();
 					motor.Stop();
@@ -217,15 +225,75 @@ public class Movement {
 				pal=true;
 			}
 			while(pal && !coul.equals("BLANC")) {  // DEPOSER PALET 
-				coul=couleur.getColor();
 				motor.Straight();
+				coul=couleur.getColor();
 			}
-			if(coul.equals("BLANC")) {
+			if(coul.equals("BLANC") && NbPalet==1) { // DERNIER DEPOT
 				motor.Stop();
 				ram.drop();
-				motor.Back();
-				motor.TurnAround();
 				NbPalet-=1;
+				break;
+			}
+			if(coul.equals("BLANC") && NbPalet>1) { // DEPOT & REPLACEMENT POUR FINIR LA LIGNE EN COURS
+				NbPalet-=1;
+				pal=false;
+				motor.Stop();
+				ram.drop();
+				Delay.msDelay(700);
+				motor.Back();
+				motor.Stop();
+				coul=couleur.getColor();
+				if(!coul.equals("NOIR")) {	// PERMET DE TROUVER LA LIGNE JAUNE OU ROUGE
+					motor.Right();
+					coul=couleur.getColor();
+					while(!coul.equals("JAUNE") || !coul.equals("ROUGE")) {
+						motor.Straight();
+						coul=couleur.getColor();
+					}
+				}
+				else if(coul.equals("NOIR")) { // FAIT UN DEMI TOUR POUR SE REPLACER SUR LA LIGNE NOIRE
+					motor.TurnAround();
+				}
+				coul=couleur.getColor();
+				if(coul.equals("JAUNE") || coul.equals("ROUGE")) {
+					motor.Stop();
+					motor.Right();
+				}
+				coul=couleur.getColor();
+				while((coul.equals("JAUNE") || coul.equals("VERT")) && !coul.equals("NOIR") && !touch.estActif()) {
+					motor.Straight();
+					coul=couleur.getColor();
+					if(touch.estActif() && CampAdverse && coul.equals("JAUNE")) {
+						motor.Stop();
+						ram.carry();
+						Delay.msDelay(700);
+						motor.TurnAround();
+						pal=true;
+					}
+					if(!touch.estActif() && coul.equals("NOIR")) {
+						motor.Stop();
+						motor.TurnAround();
+						pal=false; // SANS DOUTE INUTILE, A VERIFIER
+					}
+				}
+			}
+		}
+	}
+	
+	public void DirectionJauneNord() {
+		
+		String coul=couleur.getColor();
+		boolean pal=false;
+		
+		while(NbPalet!=0) {
+			while(!touch.estActif() && (coul.equals("VERT") || coul.equals("NOIR"))) {
+				motor.Straight();
+				coul=couleur.getColor();
+			}
+			if(coul.equals("BLEU")) {
+				motor.Right();
+				motor.Straight();
+				Delay.msDelay(2000);
 			}
 		}
 	}
