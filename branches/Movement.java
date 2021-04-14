@@ -11,20 +11,20 @@ public class Movement {
 	UltraSonicSensor ul=new UltraSonicSensor();
 	
 	private int NbPalet=1;  // CHOIX DU NOMBRE DU PALET SUR LE TERRAIN
-	private boolean CampAdverse=true; // SI TRUE, ALORS RETOUR AU CAMP D'ORIGINE
+	private boolean CampAdverse=false; // SI TRUE, ALORS RETOUR AU CAMP D'ORIGINE
 	
-	public static void line() {
+	public static void line(boolean b) {
     	
     	String coul=couleur.getColor();
         
-    	while(true) {
-            while(!coul.equals("GRIS")) {
+    	while(b) {
+            if(!coul.equals("GRIS")) {
                 motor.setMotorGSpeed(400);
                 motor.setMotorDSpeed(350);
                 motor.Straight();
                 coul=couleur.getColor();
             
-            while(coul.equals("GRIS")) {
+            if(coul.equals("GRIS")) {
                 motor.setMotorGSpeed(350);
                 motor.setMotorDSpeed(400);
                 motor.Straight();
@@ -43,20 +43,18 @@ public class Movement {
 		
 		while(NbPalet!=0) {
 			
-			while(!touch.estActif() && (coul.equals("ROUGE") || coul.equals("BLEU") || coul.equals("GRIS") || coul.equals("NOIR"))) {
-				//line();
-				motor.Straight();
+		//	while(!touch.estActif() && !coul.equals("VERT") && (coul.equals("ROUGE") || coul.equals("BLEU") || coul.equals("GRIS") || coul.equals("NOIR"))) {
+				line(!touch.estActif() && !coul.equals("VERT") && (coul.equals("ROUGE") || coul.equals("BLEU") || coul.equals("GRIS") || coul.equals("NOIR")));
 				coul=couleur.getColor();
-			}
+		//	}
 			coul=couleur.getColor();
 			if(coul.equals("null")) {
 				motor.Stop();
 				motor.Back();
 			}
 			if(coul.equals("VERT")) {
-				//motor.Stop();
 				motor.Right();
-				line();
+				line(coul.equals("VERT"));
 				Delay.msDelay(2000); // TEMPS NECESSAIRE POUR ALLER JUSQU'AU PROCHAIN CROISEMENT
 				motor.Stop();
 			}
@@ -143,14 +141,16 @@ public class Movement {
 		String coul=couleur.getColor();
 		boolean pal=false;
 		
-		while(!touch.estActif() && (coul.equals("JAUNE") || coul.equals("BLEU") || coul.equals("NOIR") || coul.equals("GRIS"))) {
-			motor.Straight();
+		while(!touch.estActif() && !coul.equals("VERT")) {
+			motor.Straight(); // (coul.equals("JAUNE") || coul.equals("BLEU") || coul.equals("NOIR") || coul.equals("GRIS"))
 			coul=couleur.getColor(); // A EFFECTUER SEULEMENT AU DEBUT, POUR EVITER ERREUR APRES
 		}
 		
 		while(NbPalet!=0) {
 			coul=couleur.getColor();
 			if(coul.equals("VERT") && !touch.estActif()) {
+				motor.Straight();
+				Delay.msDelay(200);
 				motor.Left();
 				motor.Straight();
 				Delay.msDelay(2000); // TEMPS NECESSAIRE POUR ALLER JUSQU'AU PROCHAIN CROISEMENT
@@ -160,18 +160,22 @@ public class Movement {
 				motor.Left();
 			}
 			coul=couleur.getColor();
-			while(coul.equals("NOIR") && !coul.equals("BLEU") && !touch.estActif()) {
-				coul=couleur.getColor();
+			while((coul.equals("NOIR") || coul.equals("GRIS")) && !coul.equals("BLEU") && !touch.estActif()) {
 				motor.Straight();
+				coul=couleur.getColor();
+				if(coul.equals("BLEU")) {
+					motor.Stop();
+				}
 			}
-			if(!touch.estActif() && (coul.equals("BLEU"))){
+			coul=couleur.getColor();
+			if(!touch.estActif() && (!coul.equals("NOIR") || coul.equals("GRIS") || coul.equals("BLEU"))){
 				motor.Stop();
 				motor.Right();
 				motor.Straight();
 				Delay.msDelay(2000);
 			}
 			coul=couleur.getColor();
-			if(!touch.estActif() && (coul.equals("BLEU"))){
+			if(!touch.estActif() && (coul.equals("BLEU")|| coul.equals("GRIS"))){
 				motor.Right();
 			}
 			coul=couleur.getColor();
@@ -189,10 +193,10 @@ public class Movement {
 					motor.Stop();
 				}
 				if(CampAdverse && NbPalet>1) {	// SE DECALE DE LA LIGNE POUR EVITER AUTRES PALETS
-					motor.Left(200);
+					motor.Left(400);
 					motor.Straight();
-					Delay.msDelay(700);
-					motor.Right(200);
+					Delay.msDelay(1500);
+					motor.Right(400);
 				}
 				pal=true;
 			}
@@ -239,7 +243,6 @@ public class Movement {
 				pal=false;
 				motor.Stop();
 				ram.drop();
-				Delay.msDelay(700);
 				motor.Back();
 				motor.Stop();
 				coul=couleur.getColor();
@@ -260,7 +263,7 @@ public class Movement {
 					motor.Right();
 				}
 				coul=couleur.getColor();
-				while((coul.equals("JAUNE") || coul.equals("VERT")) && !coul.equals("NOIR") && !touch.estActif()) {
+				while((coul.equals("JAUNE") || coul.equals("VERT")|| coul.equals("ROUGE")) && !coul.equals("NOIR") && !touch.estActif()) {
 					motor.Straight();
 					coul=couleur.getColor();
 					if(touch.estActif() && CampAdverse && coul.equals("JAUNE")) {
