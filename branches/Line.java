@@ -7,30 +7,30 @@ import lejos.utility.Delay;
 public class Line {
     
     Motor motor=new Motor();
-    ColorSensor col=new ColorSensor();
-    String couleur=col.getColor();
+    ColorSensor couleur=new ColorSensor();
+    String couleurLine=couleur.getColor();
     
     public void line(String coul) { //assigner coul
-        while(couleur.equals(coul) || couleur.equals("GRIS")) { //tant que coul ou gris
-        	while(couleur.equals(coul)) { //Tant que le robot est sur la ligne coul
+        while(couleurLine.equals(coul) || couleurLine.equals("GRIS")) { //tant que coul ou gris
+        	while(couleurLine.equals(coul)) { //Tant que le robot est sur la ligne coul
 	        	motor.setMotorGSpeed(400);//Le robot dérive un peu plus à droite
 	        	motor.setMotorDSpeed(352);
 	        	
 	            motor.Straight();
-	            couleur=col.getColor();
+	            couleurLine=couleur.getColor();
             
-            while(couleur.equals("GRIS")) { //Tant que le robot voit du GRIS (hors de la ligne)
+            while(couleurLine.equals("GRIS")) { //Tant que le robot voit du GRIS (hors de la ligne)
 	            motor.setMotorGSpeed(350);//Le robot dérive un peu plus à gauche
 	            motor.setMotorDSpeed(400);
 	            motor.Straight();
 	            //motor.Left(0.5);
-	            couleur=col.getColor();
+	            couleurLine=couleur.getColor();
 	            
                 
             	}
         	}
             
-            couleur=col.getColor();
+            couleurLine=couleur.getColor();
             
         }
     }
