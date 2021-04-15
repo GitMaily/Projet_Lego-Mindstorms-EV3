@@ -326,10 +326,86 @@ public class Movement {
 			Delay.msDelay(400);
 		}
 	}
+	
+	public void lookFor(String color) {
+		String coul = couleur.getColor();
+		while(coul != color ) {
+			motor.Straight();		
+			coul = couleur.getColor();
+		}
+		motor.Stop();
+	}
 
+	
+	public String lookFor() {
+		String coul = couleur.getColor();
+		while((coul == "NOIR") || (coul == "GRIS")) {
+			motor.Straight();		
+			coul = couleur.getColor();
+		}
+		motor.Stop();
+		return coul;
+	}
+	public void lookFor(int p) {
+		while(!touch.estActif()) {
+			motor.Straight();
+		}
+		motor.Stop();
+		ram.carry();
+	}
+
+	public void retour(int r) {
+		
+		String coul = couleur.getColor();
+		switch (r) {
+		
+		case 1 : 
+			while(coul != "Blanc" ) {
+				motor.Straight();
+			}
+			motor.Stop();
+			ram.drop();	
+			motor.TurnAround();
+			
+		case 2 :                                                 // 2 :il faut tourner à droite
+			motor.Right();
+			while(coul != "Blanc" ) {
+				motor.Straight();
+			}
+			motor.Stop();
+			ram.drop();	
+			motor.TurnAround();
+			
+		case 3 :												// il faut tourner à gauche
+			motor.Left();
+			while(coul != "Blanc" ) {
+				motor.Straight();
+			}
+			motor.Stop();
+			ram.drop();
+			motor.TurnAround();
+				
+		case 4 :											 // il faut faire demi-tour
+			motor.TurnAround();
+			while(coul != "Blanc" ) {
+				motor.Straight();
+			}
+			motor.Stop();
+			ram.drop();
+			motor.TurnAround();
+			
+		}
+	}
+
+					
+	  
+		
+
+	
 	
 	public static void main(String[] args) {
 		Movement test=new Movement();
 		test.DirectionJauneSud();
+		test.lookFor("VERT");
 	}
 }
