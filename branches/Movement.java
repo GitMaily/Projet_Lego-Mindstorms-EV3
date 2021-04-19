@@ -529,6 +529,7 @@ public class Movement {
 		}
 		motor.Stop();
 	}
+
 	
 	public String lookFor() {
 		String coul = couleur.getColor();
@@ -539,38 +540,41 @@ public class Movement {
 		motor.Stop();
 		return coul;
 	}
-	public void lookFor(int p) {
-		while(!touch.estActif()) {
+	public void lookForP(String color) {
+		String coul = couleur.getColor();
+		while(!touch.estActif() && coul == color ) {
 			motor.Straight();
+			coul = couleur.getColor();
 		}
 		motor.Stop();
 		ram.carry();
 	}
+
 	public void retour(int r) {
 		
 		String coul = couleur.getColor();
 		switch (r) {
 		
 		case 1 : 
-			while(coul != "Blanc" ) {
+			while(coul != "BLANC" ) {
 				motor.Straight();
 			}
 			motor.Stop();
 			ram.drop();	
 			motor.TurnAround();
 			
-		case 2 :                                                 // 2 :il faut tourner ? droite
+		case 2 :                                                 // 2 :il faut tourner à droite
 			motor.Right();
-			while(coul != "Blanc" ) {
+			while(coul != "BLANC" ) {
 				motor.Straight();
 			}
 			motor.Stop();
 			ram.drop();	
 			motor.TurnAround();
 			
-		case 3 :												// il faut tourner ? gauche
+		case 3 :												// il faut tourner à gauche
 			motor.Left();
-			while(coul != "Blanc" ) {
+			while(coul != "BLANC" ) {
 				motor.Straight();
 			}
 			motor.Stop();
@@ -579,7 +583,7 @@ public class Movement {
 				
 		case 4 :											 // il faut faire demi-tour
 			motor.TurnAround();
-			while(coul != "Blanc" ) {
+			while(coul != "BLANC" ) {
 				motor.Straight();
 			}
 			motor.Stop();
@@ -588,6 +592,7 @@ public class Movement {
 			
 		}
 	}
+
 
 	
 	public static void main(String[] args) {

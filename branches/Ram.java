@@ -65,68 +65,138 @@ public class Ram {
 	}
 	
 
-	public void ramassLigne(String color) {
-		int nbp =3;
+	public void ramassLigne(String color,int nbp) {
 		while( nbp>0) {
-			mov.lookFor(1);
+			mov.lookForP(color);
 			mov.retour(3);
 			nbp--;
 		}
 	}
-	public void ramassEntier(String color1,String color2,String a) {
-		ramassLigne(color1);
-		System.out.println("fin ligne 1");
-
-		motor.Straight();
-		Delay.msDelay(400);
+	
+	/*la fonction ramassTotale prend en argument la couleur de gauche (colorLeft) la position de depart (G :gauche ,M :millieu,D:droit)
+	le robot alors parcour les ligne une par une et ramasse les palets et les depose derriere la ligne de depart
+	*/
+	public void ramassTotale(String colorLeft,char position,int nbpG,int nbpM,int nbpD) {
 		
-		if(a == "GAUCHE" ) {
-			
-			motor.Right();
-			mov.lookFor("NOIR");
-			motor.Left();
-			mov.lookFor("NOIR");
-			ramassLigne("NOIR");
-			
-			System.out.println("fin ligne2 ");
-
-			motor.Straight();
-			Delay.msDelay(400);
-			
-			motor.Right();
-			mov.lookFor(color2);
-			
-			motor.Left();
-			mov.lookFor(color2);
-			ramassLigne(color2);
-			
-			System.out.println("fin");
+		if(colorLeft =="JAUNE") {
+			String colorRight = "ROUGE";
 		}
 		else {
-			motor.Left();
-			mov.lookFor("NOIR");
-			motor.Right();
-			mov.lookFor("NOIR");
-			ramassLigne("NOIR");
+			String colorRight = "JAUNE";
+		}
+		
+		switch (position) {
+		
+		case "G":
+			// on ramasse la ligne gauche
+			ramassLigne(colorLeft,nbpG);			//le robot
+			System.out.println("fin ligne 1");
 			
-			System.out.println("fin ligne2 ");
-
 			motor.Straight();
 			Delay.msDelay(400);
+			motor.Stop();
 			
-			motor.Left();
-			mov.lookFor(color2);
+			//le robot ramasse la ligne noir du millieu
+			motor.Right();        			//on cherche la ligne noir
+			mov.lookFor("NOIR");
+			motor.Left();					// il se place dessus.
+			mov.lookFor("NOIR");
+			
+			ramassLigne("NOIR",nbpM);			// ramasse les palets
+			
+			System.out.println("fin ligne2 ");
+			
+			motor.Straight();
+			Delay.msDelay(400);
+			motor.Stop();
+			
+			//Le robot ramasse la troisieme ligne
 			
 			motor.Right();
-			mov.lookFor(color2);
-			ramassLigne(color2);
+			mov.lookFor(colorRight);
+			
+			motor.Left();
+			mov.lookFor(colorRight);
+			ramassLigne(colorRight,nbpD);
 			
 			System.out.println("fin");
 			
+		case "M":
+			// le robot ramasse les palets sur la ligne noir
+			ramasseLigne("Noir",nbpM);
+			System.out.println("fin ligne 1");
+
+			//la deusieme ligne serra la ligne gauche
+			motor.Straight();
+			Delay.msDelay(400);
+			motor.Stop();
+			
+			motor.Left();
+			mov.lookFor(colorLeft);  //il cherche la la ligne de couleur colorleft 
+			motor.Right();				//il se positionne dessus
+			mov.lookFor(colorLeft);
+			
+			
+			ramassLigne(colorLeft,nbpG);	//ramasse le les palets 
+			
+			//la troisieme ligne est la ligne de droite.
+			
+			motor.Straight();
+			Delay.msDelay(400);
+			motor.Stop();
+			
+			//Le robot ramasse la troisieme ligne
+			
+			motor.Right();
+			mov.lookFor(colorRight);
+			
+			motor.Left();
+			mov.lookFor(colorRight);
+			
+			ramassLigne(colorRight,nbpD);  // ramasse les palets
+			
+			System.out.println("fin");
+			
+		case "D":
+			// le robot commence par la ligne droite
+			ramassLigne(colorRight,nbpD);
+			System.out.println("fin ligne 1");
+			
+			// il passe a la ligne noir a ça gauche
+			
+			motor.Straight();
+			Delay.msDelay(400);
+			motor.Stop();
+			
+			motor.Left();
+			mov.lookFor("NOIR");  //il cherche la la ligne noir
+			motor.Right();				//il se positionne dessus
+			mov.lookFor("NOIR");
+			
+			
+			ramassLigne("NOIR",nbpM);	//ramasse le les palets 
+			System.out.println("fin ligne noir");
+
+			//troisieme Ligne
+			
+			motor.Straight();
+			Delay.msDelay(400);
+			motor.Stop();
+			
+			motor.Left();
+			mov.lookFor(colorLeft);  //il cherche la la ligne de couleur colorleft 
+			motor.Right();				//il se positionne dessus
+			mov.lookFor(colorLeft);
+			
+			
+			ramassLigne(colorLeft,nbpG);	//ramasse le les palets 
+			System.out.println("fin ");
+		
+		
 		}
 		
-		
 	}
+
 	public void noir() {
 		
 		
