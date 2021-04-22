@@ -24,7 +24,7 @@ public class Movement {
 
 	
 
-	public static void line(String couleurLigne) {
+	public void line(String couleurLigne) {
 
     	
 
@@ -81,10 +81,10 @@ public class Movement {
 
 			if(coul.equals("VERT") && !touch.estActif()) {
 
-				motor.Straight();
+				line(coul);
 				Delay.msDelay(200);
 				motor.Right();
-				motor.Straight();
+				line(coul);
 				Delay.msDelay(2000); // TEMPS NECESSAIRE POUR ALLER JUSQU'AU PROCHAIN CROISEMENT
 			}
 
@@ -100,7 +100,7 @@ public class Movement {
 
 			while((coul.equals("NOIR") || coul.equals("GRIS")) && !coul.equals("BLEU") && !touch.estActif()) {
 
-				motor.Straight();
+				line(coul);
 
 				coul=couleur.getColor();
 
@@ -120,7 +120,7 @@ public class Movement {
 
 				motor.Left();
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(2000);
 
@@ -138,7 +138,7 @@ public class Movement {
 
 			while(!touch.estActif() && (!coul.equals("BLANC"))){
 
-				motor.Straight();
+				line(coul);
 
 				coul=couleur.getColor();
 
@@ -166,7 +166,7 @@ public class Movement {
 
 					motor.Left(400);
 
-					motor.Straight();
+					line(coul);
 
 					Delay.msDelay(1500);
 
@@ -210,7 +210,7 @@ public class Movement {
 
 				Delay.msDelay(700);
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(300);
 
@@ -236,7 +236,7 @@ public class Movement {
 
 			while(pal && !coul.equals("BLANC")) {  // DEPOSER PALET 
 
-				motor.Straight();
+				line(coul);
 
 				coul=couleur.getColor();
 
@@ -278,7 +278,7 @@ public class Movement {
 
 					while(!coul.equals("JAUNE") || !coul.equals("ROUGE")) {
 
-						motor.Straight();
+						line(coul);
 
 						coul=couleur.getColor();
 
@@ -306,7 +306,7 @@ public class Movement {
 
 				while((coul.equals("JAUNE") || coul.equals("VERT")|| coul.equals("ROUGE")) && !coul.equals("NOIR") && !touch.estActif()) {
 
-					motor.Straight();
+					line(coul);
 
 					coul=couleur.getColor();
 
@@ -354,10 +354,10 @@ public class Movement {
 
 			if(coul.equals("BLEU") && !touch.estActif()) {
 
-				motor.Straight();
+				line(coul);
 				Delay.msDelay(200);
 				motor.Left();
-				motor.Straight();
+				line(coul);
 				Delay.msDelay(2000); // TEMPS NECESSAIRE POUR ALLER JUSQU'AU PROCHAIN CROISEMENT
 			}
 		}
@@ -369,7 +369,7 @@ public class Movement {
 		coul=couleur.getColor();
 
 		while((coul.equals("NOIR") || coul.equals("GRIS")) && !coul.equals("VERT") && !touch.estActif()) {
-			motor.Straight();
+			line(coul);
 			coul=couleur.getColor();
 			if(coul.equals("VERT")) {
 				motor.Stop();
@@ -383,7 +383,7 @@ public class Movement {
 
 			motor.Right();
 
-			motor.Straight();
+			line(coul);
 
 			Delay.msDelay(2000);
 		}
@@ -399,7 +399,7 @@ public class Movement {
 
 		while(!touch.estActif() && (!coul.equals("BLANC"))){
 
-			motor.Straight();
+			line(coul);
 
 			coul=couleur.getColor();
 
@@ -427,7 +427,7 @@ public class Movement {
 
 				motor.Left(400);
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(1500);
 
@@ -471,7 +471,7 @@ public class Movement {
 
 			Delay.msDelay(700);
 
-			motor.Straight();
+			line(coul);
 
 			Delay.msDelay(300);
 
@@ -497,7 +497,7 @@ public class Movement {
 
 		while(pal && !coul.equals("BLANC")) {  // DEPOSER PALET 
 
-			motor.Straight();
+			line(coul);
 
 			coul=couleur.getColor();
 
@@ -532,7 +532,7 @@ public class Movement {
 				motor.Left();
 				coul=couleur.getColor();
 				while(!coul.equals("JAUNE") || !coul.equals("ROUGE")) {
-					motor.Straight();
+					line(coul);
 					coul=couleur.getColor();
 				}
 			}
@@ -546,7 +546,7 @@ public class Movement {
 			}
 			coul=couleur.getColor();
 			while((coul.equals("JAUNE") || coul.equals("VERT")|| coul.equals("ROUGE")) && !coul.equals("NOIR") && !touch.estActif()) {
-				motor.Straight();
+				line(coul);
 				coul=couleur.getColor();
 				if(touch.estActif() && CampAdverse && coul.equals("JAUNE")) {
 					motor.Stop();
@@ -578,7 +578,7 @@ public class Movement {
 
 		while(!touch.estActif() && !coul.equals("VERT")) {
 
-			motor.Straight(); // (coul.equals("JAUNE") || coul.equals("BLEU") || coul.equals("NOIR") || coul.equals("GRIS"))
+			line(coul); // (coul.equals("JAUNE") || coul.equals("BLEU") || coul.equals("NOIR") || coul.equals("GRIS"))
 
 			coul=couleur.getColor(); // A EFFECTUER SEULEMENT AU DEBUT, POUR EVITER ERREUR APRES
 
@@ -592,13 +592,13 @@ public class Movement {
 
 			if(coul.equals("VERT") && !touch.estActif()) {
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(200);
 
 				motor.Left();
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(2000); // TEMPS NECESSAIRE POUR ALLER JUSQU'AU PROCHAIN CROISEMENT
 
@@ -616,7 +616,7 @@ public class Movement {
 
 			while((coul.equals("NOIR") || coul.equals("GRIS")) && !coul.equals("BLEU") && !touch.estActif()) {
 
-				motor.Straight();
+				line(coul);
 
 				coul=couleur.getColor();
 
@@ -636,7 +636,7 @@ public class Movement {
 
 				motor.Right();
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(2000);
 
@@ -654,7 +654,7 @@ public class Movement {
 
 			while(!touch.estActif() && (!coul.equals("BLANC"))){
 
-				motor.Straight();
+				line(coul);
 
 				coul=couleur.getColor();
 
@@ -682,7 +682,7 @@ public class Movement {
 
 					motor.Left(400);
 
-					motor.Straight();
+					line(coul);
 
 					Delay.msDelay(1500);
 
@@ -726,7 +726,7 @@ public class Movement {
 
 				Delay.msDelay(700);
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(300);
 
@@ -752,7 +752,7 @@ public class Movement {
 
 			while(pal && !coul.equals("BLANC")) {  // DEPOSER PALET 
 
-				motor.Straight();
+				line(coul);
 
 				coul=couleur.getColor();
 
@@ -794,7 +794,7 @@ public class Movement {
 
 					while(!coul.equals("JAUNE") || !coul.equals("ROUGE")) {
 
-						motor.Straight();
+						line(coul);
 
 						coul=couleur.getColor();
 
@@ -822,7 +822,7 @@ public class Movement {
 
 				while((coul.equals("JAUNE") || coul.equals("VERT")|| coul.equals("ROUGE")) && !coul.equals("NOIR") && !touch.estActif()) {
 
-					motor.Straight();
+					line(coul);
 
 					coul=couleur.getColor();
 
@@ -869,7 +869,7 @@ public class Movement {
 
 		while(!touch.estActif() && !coul.equals("BLEU")) {
 
-			motor.Straight(); 
+			line(coul); 
 
 			coul=couleur.getColor(); // A EFFECTUER SEULEMENT AU DEBUT, POUR EVITER ERREUR APRES
 
@@ -883,13 +883,13 @@ public class Movement {
 
 			if(coul.equals("BLEU") && !touch.estActif()) {
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(200);
 
 				motor.Right();
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(2000); // TEMPS NECESSAIRE POUR ALLER JUSQU'AU PROCHAIN CROISEMENT
 
@@ -907,7 +907,7 @@ public class Movement {
 
 			while((coul.equals("NOIR") || coul.equals("GRIS")) && !touch.estActif()) {
 
-				motor.Straight();
+				line(coul);
 
 				coul=couleur.getColor();
 
@@ -923,13 +923,13 @@ public class Movement {
 
 			if(!touch.estActif() && (/*!coul.equals("NOIR") || coul.equals("GRIS") ||*/ coul.equals("VERT"))){
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(200);
 
 				motor.Left();
 
-				motor.Straight();
+				line(coul);
 
 				Delay.msDelay(2000);
 
@@ -947,7 +947,7 @@ public class Movement {
 
 			while(!touch.estActif() && (!coul.equals("BLANC"))){
 
-				motor.Straight();
+				line(coul);
 
 				coul=couleur.getColor();
 
@@ -975,7 +975,7 @@ public class Movement {
 
 					motor.Left(400); 
 
-					motor.Straight();
+					line(coul);
 
 					Delay.msDelay(1500);
 
@@ -1009,7 +1009,7 @@ public class Movement {
 
 					motor.Left(400); 
 
-					motor.Straight();
+					line(coul);
 
 					Delay.msDelay(1500);
 
@@ -1053,7 +1053,7 @@ public class Movement {
 
 			while(pal && !coul.equals("BLANC")) {  // DEPOSER PALET 
 
-				motor.Straight(); 
+				line(coul); 
 
 				coul=couleur.getColor();
 
@@ -1109,7 +1109,7 @@ public class Movement {
 
 					while(!coul.equals("JAUNE") || !coul.equals("ROUGE")|| !coul.equals("NOIR")) {
 
-						motor.Straight();
+						line(coul);
 
 						coul=couleur.getColor();
 
@@ -1119,7 +1119,7 @@ public class Movement {
 
 						motor.Stop();
 
-						motor.Straight();
+						line(coul);
 
 						Delay.msDelay(200);
 
@@ -1133,7 +1133,7 @@ public class Movement {
 
 				while((coul.equals("JAUNE") || coul.equals("VERT")|| coul.equals("ROUGE")) && !touch.estActif()) {
 
-					motor.Straight();
+					line(coul);
 
 					coul=couleur.getColor();
 
@@ -1179,7 +1179,7 @@ public class Movement {
 
 					while(!coul.equals("VERT") && !touch.estActif()) {
 
-						motor.Straight();
+						line(coul);
 
 						coul=couleur.getColor();
 
