@@ -23,6 +23,7 @@ public class  Collecting {
     public void drop() {        // drope() fait l'inversse 
 
         motorR.forward();
-        Delay.msDelay(500);
+        Delay.msDelay(800);
+        motorR.stop();
     }
 }
