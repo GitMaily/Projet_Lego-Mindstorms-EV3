@@ -11,10 +11,9 @@ public class Motor {
 	RegulatedMotor motorD = new EV3LargeRegulatedMotor(MotorPort.A);   // Assignation du moteur droit au port A
 	
 	public Motor() {
-		motorG.setSpeed(415);  // Assigne 400deg/s au moteur gauche
-		motorD.setSpeed(402);  // Assigne 400deg/s au moteur droit
+		motorG.setSpeed(300);  // Assigne 415deg/s au moteur gauche
+		motorD.setSpeed(302);  // Assigne 402deg/s au moteur droit
 		motorG.synchronizeWith(new RegulatedMotor[] {motorD});
-		//motorG.startSynchronization();
 	}
 	
 	public void setMotorGSpeed(int s) {
@@ -58,15 +57,15 @@ public class Motor {
 	}
 	
 	public void Left(double i) {       
-		motorG.setSpeed(300);
+		motorG.stop();
 		motorD.forward();
 		Delay.msDelay((long) i);
 	}
 	
 	public void TurnAround() { // Le robot fait demi-tour
-		motorG.backward();      // .rotate(180);
-		motorD.forward();     // .rotate(180);
-		Delay.msDelay(970);
+		motorG.backward();     
+		motorD.forward();    
+		Delay.msDelay(1000);
 	}
 	
 	public void Stop() { // Le robot fait demi-tour
@@ -75,10 +74,4 @@ public class Motor {
 		motorG.stop();
 		motorG.endSynchronization();
 	}	
-	
-	public static void main(String[] args) {  
-		Motor test=new Motor();
-		test.Straight();
-		Delay.msDelay(2000);
-	}
 }
