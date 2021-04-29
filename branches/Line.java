@@ -68,7 +68,7 @@ public class Line {
         	}
             
             couleurLine=couleur.getColor();
-            //motor.StraightLine(); //resynchroniser les moteurs
+            motor.MotorReset(); //resynchroniser les moteurs
         }
     }
     
