@@ -29,8 +29,65 @@ public class Ram {
 				ram.carry();
 				nbp--;
 				mov.retour(2);
+				
 				if(nbp>0) {
-					ramassDroit(color,nbp);
+					
+					mov.lookFor(color);
+					motor.Right();
+					while((couleur==color) && !touch.estActif()) {
+						motor.Straight();
+						couleur = colorsensor.getColor();
+					}
+					motor.Stop();
+					if(couleur!=color) {
+						return nbp;
+					}
+					else if(touch.estActif()) {
+						ram.carry();
+						nbp--;
+						mov.retour(2);
+						if(nbp>0) {
+							mov.lookFor(color);
+							motor.Right();
+							while((couleur==color) && !touch.estActif()) {
+								motor.Straight();
+								couleur = colorsensor.getColor();
+							}
+							motor.Stop();
+							if(couleur!=color) {
+								return nbp;
+							}
+							else if(touch.estActif()) {
+								ram.carry();
+								nbp--;
+								mov.retour(2);
+								if(nbp>0) {
+									mov.lookFor(color);
+									motor.Right();
+									while((couleur==color) && !touch.estActif()) {
+										motor.Straight();
+										couleur = colorsensor.getColor();
+									}
+									motor.Stop();
+									if(couleur!=color) {
+										return nbp;
+									}
+									else if(touch.estActif()) {
+										ram.carry();
+										nbp--;
+										mov.retour(2);
+
+										return 0;
+									}
+									else return -1;
+								}
+								return 0;
+							}
+							else return -1;
+						}
+						return 0;
+					}
+					else return -1;
 				}
 				return 0;
 			}
@@ -56,7 +113,62 @@ public class Ram {
 				nbp--;
 				mov.retour(3);
 				if(nbp>0) {
-					ramassGauch(color,nbp);
+					mov.lookFor(color);
+					motor.Left();
+					while((couleur==color) && !touch.estActif()) {
+						motor.Straight();
+						couleur = colorsensor.getColor();
+					}
+					motor.Stop();
+					if(couleur!=color) {
+						return nbp;
+					}
+					else if(touch.estActif()) {
+						ram.carry();
+						nbp--;
+						mov.retour(3);
+						if(nbp>0) {
+							mov.lookFor(color);
+							motor.Left();
+							while((couleur==color) && !touch.estActif()) {
+								motor.Straight();
+								couleur = colorsensor.getColor();
+							}
+							motor.Stop();
+							if(couleur!=color) {
+								return nbp;
+							}
+							else if(touch.estActif()) {
+								ram.carry();
+								nbp--;
+								mov.retour(3);
+								if(nbp>0) {
+									mov.lookFor(color);
+									motor.Left();
+									while((couleur==color) && !touch.estActif()) {
+										motor.Straight();
+										couleur = colorsensor.getColor();
+									}
+									motor.Stop();
+									if(couleur!=color) {
+										return nbp;
+									}
+									else if(touch.estActif()) {
+										ram.carry();
+										nbp--;
+										mov.retour(3);
+										
+										return 0;
+									}
+									else return -1;
+								}
+								return 0;
+							}
+							else return -1;
+						}
+						return 0;
+					}
+					else return -1;
 				}
 				return 0;
 			}
