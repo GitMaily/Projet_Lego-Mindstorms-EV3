@@ -269,20 +269,20 @@ public class Movement {
 		}
 		motor.Stop();
 		
-		if(touch.estActif()) {
-			ram.carry();
-			retour(4);
+		if(touch.estActif()) {										// si il trouve une palet 
+			ram.carry();									//il ramasse la palet et applique retour(4)
+			retour(4);										//  il se tourne et avance jusqu'a la ligne blanche 
 		} 
-		else {
-			motor.Straight();
-			Delay.msDelay(500);
-			motor.Left(900);
+		else {											// si il est arrive a la ligne bleu 
+			motor.Straight();						//le robot avance un peu plus pour facilite la detection de la ligne jaune
+			Delay.msDelay(500);						
+			motor.Left(900);							//il se tourne a gauche 
 			motor.Stop();
 			coul=couleur.getColor();
-			
+			}
 
 			
-			while(!coul.equals("JAUNE")) {
+			while(!coul.equals("JAUNE")) {		// le robot cherche la ligne jaune
 			motor.Straight();
 			coul = couleur.getColor();
 			}
@@ -290,44 +290,43 @@ public class Movement {
 			motor.Stop();
 						
 			coul=couleur.getColor();
-			while(!coul.equals("JAUNE")){
+			while(!coul.equals("JAUNE")){			// il se positionne sur la ligne jaune
 				motor.Left(30);
 				coul=couleur.getColor();
 			}
 			motor.Left(30);
 			motor.Stop();
 			
-			}
 
 
-			while(!touch.estActif() && !coul.equals("VERT")) {
+			while(!touch.estActif() && !coul.equals("VERT")) {   // tant que le robot n'a pas trouve de palet et n'est pas arrive a la ligne vert
 				
-				line("JAUNE");
+				line("JAUNE");										// il suit la ligne jaune
 			    coul=couleur.getColor();
 			}
 			if(touch.estActif()) {
-				ram.carry();
+				ram.carry();						// si il trouve une palet il  la ramasse et avance jusqu'a la ligne blanche
 			
 				retour(1);
 			} 
 			else {
-				motor.Straight();
+				motor.Straight();					// sinon il se tourne
 				Delay.msDelay(500);
 				motor.Left(900);
 				motor.Stop();
 				coul=couleur.getColor();
 
 			
-			while(!coul.equals("ROUGE")) {
+			while(!coul.equals("ROUGE")) {			// le robot cherche la ligne rouge
 			motor.Straight();
 			coul = couleur.getColor();
 			}
 			motor.Straight();
-			Delay.msDelay(50);
+			Delay.msDelay(50);					
 			motor.Stop();
 			
 			coul=couleur.getColor();
-			while(!coul.equals("ROUGE")){
+			while(!coul.equals("ROUGE")){			// il se positionne dessus
 				motor.Left(30);
 				coul=couleur.getColor();
 			}
@@ -335,14 +334,15 @@ public class Movement {
 			
 		}
 
-		while(!touch.estActif() && !coul.equals("BLANC")) {
+		while(!touch.estActif() && !coul.equals("BLANC")) {		//tane que le robot n'a pas trouve de palet et qu'il n'est pas arrive a la ligne blanche
 			
-			line("ROUGE");
+			
+			line("ROUGE");					// il il suit la ligne rouge
 			coul = couleur.getColor();
 		}
-		if(touch.estActif()) {
+		if(touch.estActif()) {				// si il a trouveune palet il la ramasse
 			ram.carry();
-			retour(4);
+			retour(4);							// le robot deplace la palet derrire la ligne blanche
 		}
 		
 	}
