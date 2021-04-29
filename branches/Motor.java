@@ -1,18 +1,16 @@
 package codesource;
-
 import lejos.hardware.motor.EV3LargeRegulatedMotor; 
 import lejos.hardware.port.MotorPort;
 import lejos.robotics.RegulatedMotor;
 import lejos.utility.Delay;
-
 public class Motor {
 	
 	RegulatedMotor motorG = new EV3LargeRegulatedMotor(MotorPort.C);   // Assignation du moteur gauche au port C
 	RegulatedMotor motorD = new EV3LargeRegulatedMotor(MotorPort.A);   // Assignation du moteur droit au port A
 	
 	public Motor() {
-		motorG.setSpeed(300);  // Assigne 415deg/s au moteur gauche
-		motorD.setSpeed(302);  // Assigne 402deg/s au moteur droit
+		motorG.setSpeed(400);  // Assigne 415deg/s au moteur gauche
+		motorD.setSpeed(402);  // Assigne 402deg/s au moteur droit
 		motorG.synchronizeWith(new RegulatedMotor[] {motorD});
 	}
 	
@@ -23,34 +21,48 @@ public class Motor {
         motorD.setSpeed(s);
     }
 	
-	public void Straight() {   // Le robot avance
-		motorG.startSynchronization();	// DEBUT SYNCHRONISATION DES 2 ROUES
-		motorG.forward();
-		motorD.forward();
-		motorG.endSynchronization();	// FIN SYNCHRONISATION DES 2 ROUES	
-	}
+    public void MotorReset() {
+    	motorG.setSpeed(400);
+    	motorD.setSpeed(402);
+    }
+
+    public void Straight() {   // Le robot avance
+    	motorG.startSynchronization();	// DEBUT SYNCHRONISATION DES 2 ROUES
+    	motorG.forward();
+    	motorD.forward();
+    	motorG.endSynchronization();	// FIN SYNCHRONISATION DES 2 ROUES	
+    }
+
+    public void StraightLine() {
+    	motorG.setSpeed(400);
+    	motorD.setSpeed(402);
+    	motorG.startSynchronization();
+    	motorG.forward();
+    	motorD.forward();
+    	motorG.endSynchronization();
+    }
 	
 	public void Back() {       // Le robot recule
 		motorG.startSynchronization();
 		motorG.backward();
 		motorD.backward();
-		Delay.msDelay(1000);
+		//Delay.msDelay(1000);
 		motorG.endSynchronization();
 	}
 	
-	public void Right() {      // Le robot tourne à droite
+	public void Right() {      // Le robot tourne ? droite
 		motorG.forward();      
 		motorD.stop();         
-		Delay.msDelay(700);    // Durée de la rotation : 0.7s
+		Delay.msDelay(700);    // Dur?e de la rotation : 0.7s
 	}
 	
-	public void Right(double i) {      // Le robot tourne à droite
+	public void Right(double i) {      // Le robot tourne ? droite
 		motorG.forward();      
 		motorD.stop();         
 		Delay.msDelay((long)i);    
 	}
 	
-	public void Left() {       // Le robot tourne à gauche
+	public void Left() {       // Le robot tourne ? gauche
 		motorG.stop();
 		motorD.forward();
 		Delay.msDelay(700);
