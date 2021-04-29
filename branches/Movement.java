@@ -271,7 +271,11 @@ public class Movement {
 		
 		if(touch.estActif()) {										// si il trouve une palet 
 			ram.carry();									//il ramasse la palet et applique retour(4)
-			retour(4);										//  il se tourne et avance jusqu'a la ligne blanche 
+			if(campAdvairse) {
+				retour(4);
+				}else {
+					retour(1);
+				}			//  il se tourne et avance jusqu'a la ligne blanche 
 		} 
 		else {											// si il est arrive a la ligne bleu 
 			motor.Straight();						//le robot avance un peu plus pour facilite la detection de la ligne jaune
@@ -307,8 +311,11 @@ public class Movement {
 			if(touch.estActif()) {
 				ram.carry();						// si il trouve une palet il  la ramasse et avance jusqu'a la ligne blanche
 			
-				retour(1);
-			} 
+				if(campAdvairse) {
+					retour(4);
+					}else {
+						retour(1);
+					}			} 
 			else {
 				motor.Straight();					// sinon il se tourne
 				Delay.msDelay(500);
@@ -342,7 +349,11 @@ public class Movement {
 		}
 		if(touch.estActif()) {				// si il a trouveune palet il la ramasse
 			ram.carry();
-			retour(4);							// le robot deplace la palet derrire la ligne blanche
+			if(campAdvairse) {
+				retour(4);
+				}else {
+					retour(1);
+				}			// le robot deplace la palet derrire la ligne blanche
 		}
 		
 	}
@@ -359,7 +370,11 @@ public class Movement {
 		
 		if(touch.estActif()) {
 			ram.carry();
-			retour(4);
+			if(campAdvairse) {
+				retour(4);
+			}else {
+				retour(1);
+			}
 		} 
 		else {
 			motor.Straight();
@@ -395,8 +410,12 @@ public class Movement {
 			}
 			if(touch.estActif()) {
 				ram.carry();
-			
-				retour(1);
+					if(campAdvairse) {
+						retour(1);
+						}else {
+							retour(4);
+				}
+							
 			} 
 			else {
 				motor.Straight();
@@ -430,7 +449,11 @@ public class Movement {
 		}
 		if(touch.estActif()) {
 			ram.carry();
+			if(campAdvairse) {
 			retour(4);
+			}else {
+				retour(1);
+			}
 		}
 		
 	}
@@ -1135,7 +1158,7 @@ public class Movement {
 		
 		case 1 : 
 			
-			while(coul != "BLANC" ) {
+			while(!coul.equals("BLANC") ) {
 				motor.Straight();
 				coul = couleur.getColor();
 			}
@@ -1149,7 +1172,7 @@ public class Movement {
 		       // 2 :il faut tourner à droite
 			
 			motor.Right(1000);
-			while(coul != "BLANC" ) {
+			while(!coul.equals("BLANC") ) {
 				motor.Straight();
 				coul = couleur.getColor();
 			}
@@ -1162,7 +1185,7 @@ public class Movement {
 			
 		case 3 :												// il faut tourner à gauche
 			motor.Left();
-			while(coul != "BLANC" ) {
+			while(!coul.equals("BLANC")) {
 				motor.Straight();
 				coul = couleur.getColor();
 			}
