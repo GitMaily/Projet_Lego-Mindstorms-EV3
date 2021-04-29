@@ -258,6 +258,178 @@ public class Movement {
 			}
 		}
 	}
+	public void DirectionNoirNord() {
+		
+		String coul=couleur.getColor();
+		
+		while(!touch.estActif()) {
+			
+				lookFor("BLEU");
+		}
+		if(touch.estActif()) {
+			ram.carry();
+			motor.TurnAround();
+			
+			while(coul != "BLANC") {
+				motor.Straight();
+				coul = couleur.getColor();
+			}
+			motor.Stop();
+			ram.drop();
+		} 
+		else {
+				motor.Left(850);
+			lookFor("JAUNE");
+				motor.Stop();
+		
+			System.out.println("bleu");
+			
+		}
+
+			if(coul =="JAUNE") {
+				motor.Straight();
+				
+				Delay.msDelay(1000);
+				motor.Left();
+				lookFor("JAUNE");
+				motor.Left();
+				motor.Stop();
+				System.out.println("Jaune");
+			} 
+			while(!touch.estActif()) {
+				
+				lookFor("VERT");
+		}
+		if(touch.estActif()) {
+			ram.carry();
+			
+			while(coul != "BLANC") {
+				motor.Straight();
+				coul = couleur.getColor();
+			}
+			motor.Stop();
+			ram.drop();
+		} else {
+				motor.Left(850);
+			lookFor("ROUGE");
+				motor.Stop();
+		
+			System.out.println("ROUGE");
+			
+		}
+		if(coul =="ROUGE") {
+			motor.Straight();
+			
+			Delay.msDelay(1000);
+			motor.Left();
+			lookFor("ROUGE");
+			motor.Left();
+			motor.Stop();
+			System.out.println("ROUGE");
+		} 
+		while(!touch.estActif()) {
+			
+			lookFor("BLANC");
+		}
+		if(touch.estActif()) {
+			ram.carry();
+			motor.TurnAround();
+			
+			while(coul != "BLANC") {
+				motor.Straight();
+				coul = couleur.getColor();
+			}
+			motor.Stop();
+			ram.drop();
+		}
+		
+	}
+	public void DirectionNoirSUD() {
+		
+		String coul=couleur.getColor();
+		
+		while(!touch.estActif()) {
+			
+				lookFor("VERT");
+		}
+		if(touch.estActif()) {
+			ram.carry();
+			motor.TurnAround();
+			
+			while(coul != "BLANC") {
+				motor.Straight();
+				coul = couleur.getColor();
+			}
+			motor.Stop();
+			ram.drop();
+		} 
+		else {
+				motor.Left(850);
+			lookFor("ROUGE");
+				motor.Stop();
+		
+			System.out.println("ROUGE");
+			
+		}
+
+			if(coul =="ROUGE") {
+				motor.Straight();
+				
+				Delay.msDelay(1000);
+				motor.Left();
+				lookFor("ROUGE");
+				motor.Left();
+				motor.Stop();
+				System.out.println("ROUGE");
+			} 
+			while(!touch.estActif()) {
+				
+				lookFor("BLEU");
+		}
+		if(touch.estActif()) {
+			ram.carry();
+			
+			while(coul != "BLANC") {
+				motor.Straight();
+				coul = couleur.getColor();
+			}
+			motor.Stop();
+			ram.drop();
+		} else {
+				motor.Left(850);
+			lookFor("JAUNE");
+				motor.Stop();
+		
+			System.out.println("JAUNE");
+			
+		}
+		if(coul =="JAUNE") {
+			motor.Straight();
+			
+			Delay.msDelay(1000);
+			motor.Left();
+			lookFor("JAUNE");
+			motor.Left();
+			motor.Stop();
+			System.out.println("JAUNE");
+		} 
+		while(!touch.estActif()) {
+			
+			lookFor("BLANC");
+		}
+		if(touch.estActif()) {
+			ram.carry();
+			motor.TurnAround();
+			
+			while(coul != "BLANC") {
+				motor.Straight();
+				coul = couleur.getColor();
+			}
+			motor.Stop();
+			ram.drop();
+		}
+		
+	}
 
 	public void DirectionRougeNord() {
 		String coul=couleur.getColor();
