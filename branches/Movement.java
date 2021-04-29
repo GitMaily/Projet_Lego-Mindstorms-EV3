@@ -262,171 +262,175 @@ public class Movement {
 		
 		String coul=couleur.getColor();
 		
-		while(!touch.estActif()) {
+		while(!touch.estActif() && !coul.equals("BLEU")) {
 			
-				lookFor("BLEU");
+				line("NOIR");
+				coul=couleur.getColor();
 		}
+		motor.Stop();
+		
 		if(touch.estActif()) {
 			ram.carry();
-			motor.TurnAround();
-			
-			while(coul != "BLANC") {
-				motor.Straight();
-				coul = couleur.getColor();
-			}
-			motor.Stop();
-			ram.drop();
+			retour(4);
 		} 
 		else {
-				motor.Left(850);
-			lookFor("JAUNE");
+			motor.Straight();
+			Delay.msDelay(500);
+			motor.Left(900);
+			motor.Stop();
+			coul=couleur.getColor();
+			
+
+			
+			while(!coul.equals("JAUNE")) {
+			motor.Straight();
+			coul = couleur.getColor();
+			}
+			
+			motor.Stop();
+						
+			coul=couleur.getColor();
+			while(!coul.equals("JAUNE")){
+				motor.Left(30);
+				coul=couleur.getColor();
+			}
+			motor.Left(30);
+			motor.Stop();
+			
+			}
+
+
+			while(!touch.estActif() && !coul.equals("VERT")) {
+				
+				line("JAUNE");
+			    coul=couleur.getColor();
+			}
+			if(touch.estActif()) {
+				ram.carry();
+			
+				retour(1);
+			} 
+			else {
+				motor.Straight();
+				Delay.msDelay(500);
+				motor.Left(900);
 				motor.Stop();
-		
-			System.out.println("bleu");
+				coul=couleur.getColor();
+
+			
+			while(!coul.equals("ROUGE")) {
+			motor.Straight();
+			coul = couleur.getColor();
+			}
+			motor.Straight();
+			Delay.msDelay(50);
+			motor.Stop();
+			
+			coul=couleur.getColor();
+			while(!coul.equals("ROUGE")){
+				motor.Left(30);
+				coul=couleur.getColor();
+			}
+			motor.Left(30);
 			
 		}
 
-			if(coul =="JAUNE") {
-				motor.Straight();
-				
-				Delay.msDelay(1000);
-				motor.Left();
-				lookFor("JAUNE");
-				motor.Left();
-				motor.Stop();
-				System.out.println("Jaune");
-			} 
-			while(!touch.estActif()) {
-				
-				lookFor("VERT");
+		while(!touch.estActif() && !coul.equals("BLANC")) {
+			
+			line("ROUGE");
+			coul = couleur.getColor();
 		}
 		if(touch.estActif()) {
 			ram.carry();
-			
-			while(coul != "BLANC") {
-				motor.Straight();
-				coul = couleur.getColor();
-			}
-			motor.Stop();
-			ram.drop();
-		} else {
-				motor.Left(850);
-			lookFor("ROUGE");
-				motor.Stop();
-		
-			System.out.println("ROUGE");
-			
-		}
-		if(coul =="ROUGE") {
-			motor.Straight();
-			
-			Delay.msDelay(1000);
-			motor.Left();
-			lookFor("ROUGE");
-			motor.Left();
-			motor.Stop();
-			System.out.println("ROUGE");
-		} 
-		while(!touch.estActif()) {
-			
-			lookFor("BLANC");
-		}
-		if(touch.estActif()) {
-			ram.carry();
-			motor.TurnAround();
-			
-			while(coul != "BLANC") {
-				motor.Straight();
-				coul = couleur.getColor();
-			}
-			motor.Stop();
-			ram.drop();
+			retour(4);
 		}
 		
 	}
-	public void DirectionNoirSUD() {
+	public void DirectionNoirSud() {
 		
 		String coul=couleur.getColor();
 		
-		while(!touch.estActif()) {
+		while(!touch.estActif() && !coul.equals("VERT")) {
 			
-				lookFor("VERT");
+				line("NOIR");
+				coul=couleur.getColor();
 		}
+		motor.Stop();
+		
 		if(touch.estActif()) {
 			ram.carry();
-			motor.TurnAround();
-			
-			while(coul != "BLANC") {
-				motor.Straight();
-				coul = couleur.getColor();
-			}
-			motor.Stop();
-			ram.drop();
+			retour(4);
 		} 
 		else {
-				motor.Left(850);
-			lookFor("ROUGE");
+			motor.Straight();
+			Delay.msDelay(500);
+			motor.Left(900);
+			motor.Stop();
+			coul=couleur.getColor();
+			
+
+			
+			while(!coul.equals("ROUGE")) {
+			motor.Straight();
+			coul = couleur.getColor();
+			}
+			
+			motor.Stop();
+						
+			coul=couleur.getColor();
+			while(!coul.equals("ROUGE")){
+				motor.Left(30);
+				coul=couleur.getColor();
+			}
+			motor.Left(30);
+			motor.Stop();
+			
+			}
+
+
+			while(!touch.estActif() && !coul.equals("BLEU")) {
+				
+				line("ROUGE");
+			    coul=couleur.getColor();
+			}
+			if(touch.estActif()) {
+				ram.carry();
+			
+				retour(1);
+			} 
+			else {
+				motor.Straight();
+				Delay.msDelay(500);
+				motor.Left(900);
 				motor.Stop();
-		
-			System.out.println("ROUGE");
+				coul=couleur.getColor();
+
+			
+			while(!coul.equals("JAUNE")) {
+			motor.Straight();
+			coul = couleur.getColor();
+			}
+			motor.Straight();
+			Delay.msDelay(50);
+			motor.Stop();
+			
+			coul=couleur.getColor();
+			while(!coul.equals("JAUNE")){
+				motor.Left(30);
+				coul=couleur.getColor();
+			}
+			motor.Left(30);
 			
 		}
 
-			if(coul =="ROUGE") {
-				motor.Straight();
-				
-				Delay.msDelay(1000);
-				motor.Left();
-				lookFor("ROUGE");
-				motor.Left();
-				motor.Stop();
-				System.out.println("ROUGE");
-			} 
-			while(!touch.estActif()) {
-				
-				lookFor("BLEU");
+		while(!touch.estActif() && !coul.equals("BLANC")) {
+			
+			line("JAUNE");
+			coul = couleur.getColor();
 		}
 		if(touch.estActif()) {
 			ram.carry();
-			
-			while(coul != "BLANC") {
-				motor.Straight();
-				coul = couleur.getColor();
-			}
-			motor.Stop();
-			ram.drop();
-		} else {
-				motor.Left(850);
-			lookFor("JAUNE");
-				motor.Stop();
-		
-			System.out.println("JAUNE");
-			
-		}
-		if(coul =="JAUNE") {
-			motor.Straight();
-			
-			Delay.msDelay(1000);
-			motor.Left();
-			lookFor("JAUNE");
-			motor.Left();
-			motor.Stop();
-			System.out.println("JAUNE");
-		} 
-		while(!touch.estActif()) {
-			
-			lookFor("BLANC");
-		}
-		if(touch.estActif()) {
-			ram.carry();
-			motor.TurnAround();
-			
-			while(coul != "BLANC") {
-				motor.Straight();
-				coul = couleur.getColor();
-			}
-			motor.Stop();
-			ram.drop();
+			retour(4);
 		}
 		
 	}
