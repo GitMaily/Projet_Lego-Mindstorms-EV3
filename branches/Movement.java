@@ -271,10 +271,11 @@ public class Movement {
 		
 		if(touch.estActif()) {										// si il trouve une palet 
 			ram.carry();									//il ramasse la palet et applique retour(4)
-			if(campAdvairse) {
+			if(CampAdverse) {
 				retour(4);
 				}else {
 					retour(1);
+					break;
 				}			//  il se tourne et avance jusqu'a la ligne blanche 
 		} 
 		else {											// si il est arrive a la ligne bleu 
@@ -311,11 +312,13 @@ public class Movement {
 			if(touch.estActif()) {
 				ram.carry();						// si il trouve une palet il  la ramasse et avance jusqu'a la ligne blanche
 			
-				if(campAdvairse) {
+				if(CampAdverse) {
 					retour(4);
 					}else {
 						retour(1);
-					}			} 
+						break;
+					}			
+				} 
 			else {
 				motor.Straight();					// sinon il se tourne
 				Delay.msDelay(500);
@@ -349,10 +352,11 @@ public class Movement {
 		}
 		if(touch.estActif()) {				// si il a trouveune palet il la ramasse
 			ram.carry();
-			if(campAdvairse) {
+			if(CampAdverse) {
 				retour(4);
 				}else {
 					retour(1);
+					break;
 				}			// le robot deplace la palet derrire la ligne blanche
 		}
 		
@@ -370,10 +374,12 @@ public class Movement {
 		
 		if(touch.estActif()) {
 			ram.carry();
-			if(campAdvairse) {
+			if(CampAdverse) {
 				retour(4);
+				break;
 			}else {
 				retour(1);
+				break;
 			}
 		} 
 		else {
@@ -410,10 +416,12 @@ public class Movement {
 			}
 			if(touch.estActif()) {
 				ram.carry();
-					if(campAdvairse) {
+					if(CampAdverse) {
 						retour(1);
+						break;
 						}else {
 							retour(4);
+							break;
 				}
 							
 			} 
@@ -449,10 +457,12 @@ public class Movement {
 		}
 		if(touch.estActif()) {
 			ram.carry();
-			if(campAdvairse) {
+			if(CampAdverse) {
 			retour(4);
+			break;
 			}else {
 				retour(1);
+				break;
 			}
 		}
 		
