@@ -262,9 +262,9 @@ public class Movement {
 		
 		String coul=couleur.getColor();
 		
-		while(!touch.estActif() && !coul.equals("BLEU")) {
+		while(!touch.estActif() && !coul.equals("BLEU")) {		//tant qu'on a pas trouve de palet
 			
-				line("NOIR");
+				line("NOIR");									//le robot suit la ligne noir
 				coul=couleur.getColor();
 		}
 		motor.Stop();
@@ -1079,21 +1079,54 @@ public class Movement {
 		motor.Stop();
 	}
 	
-	public String lookFor() {
-		String coul = couleur.getColor();
-		while((coul == "NOIR") || (coul == "GRIS")) {
-			motor.Straight();		
-			coul = couleur.getColor();
-		}
-		motor.Stop();
-		return coul;
-	}
-	public void lookFor(int p) {
+
+	public void lookForP(String color,int r) {
 		while(!touch.estActif()) {
-			motor.Straight();
+			line(color);
 		}
 		motor.Stop();
 		ram.carry();
+		retour(r);
+	}
+	public void retour(String color,int r) {
+		
+		String coul = couleur.getColor();
+		switch (r) {
+		
+		case 1 : 
+			
+			while(coul != "BLANC" ) {
+				motor.Straight();
+				line(color);
+				coul = couleur.getColor();
+			}
+			motor.Stop();
+			ram.drop();	
+			motor.Back();
+			Delay.msDelay(1000);
+			motor.TurnAround();
+			
+
+				
+		case 2 :	
+			// il faut faire demi-tour
+			motor.TurnAround(1000);
+			line(color);
+			coul = couleur.getColor();
+			while(coul != "BLANC" ) {
+				motor.Straight();
+				coul = couleur.getColor();
+			}
+			
+			motor.Stop();
+			ram.drop();
+			motor.Back();
+			Delay.msDelay(1000);
+
+			motor.TurnAround();
+			
+		}
+		
 	}
 	public void retour(int r) {
 		
@@ -1101,41 +1134,64 @@ public class Movement {
 		switch (r) {
 		
 		case 1 : 
-			while(coul != "Blanc" ) {
+			
+			while(coul != "BLANC" ) {
 				motor.Straight();
+				coul = couleur.getColor();
 			}
 			motor.Stop();
 			ram.drop();	
+			motor.Back();
+			Delay.msDelay(1000);
 			motor.TurnAround();
 			
-		case 2 :                                                 // 2 :il faut tourner ? droite
-			motor.Right();
-			while(coul != "Blanc" ) {
+		case 2 :  
+		       // 2 :il faut tourner à droite
+			
+			motor.Right(1000);
+			while(coul != "BLANC" ) {
 				motor.Straight();
+				coul = couleur.getColor();
 			}
 			motor.Stop();
 			ram.drop();	
+			motor.Back();
+			Delay.msDelay(800);
+
 			motor.TurnAround();
 			
-		case 3 :												// il faut tourner ? gauche
+		case 3 :												// il faut tourner à gauche
 			motor.Left();
-			while(coul != "Blanc" ) {
+			while(coul != "BLANC" ) {
 				motor.Straight();
+				coul = couleur.getColor();
 			}
 			motor.Stop();
 			ram.drop();
+			motor.Back();
+			Delay.msDelay(1000);
+
 			motor.TurnAround();
 				
-		case 4 :											 // il faut faire demi-tour
-			motor.TurnAround();
-			while(coul != "Blanc" ) {
+		case 4 :	
+			// il faut faire demi-tour
+			
+			motor.TurnAround(1000);
+			coul = couleur.getColor();
+			while(coul != "BLANC" ) {
 				motor.Straight();
+				coul = couleur.getColor();
 			}
+			
 			motor.Stop();
 			ram.drop();
+			motor.Back();
+			Delay.msDelay(1000);
+
 			motor.TurnAround();
 			
 		}
+		
 	}
 
 	
@@ -1176,5 +1232,20 @@ public class Movement {
 				robot.DirectionRougeNord();
 			}
 		}
+		else if(coul.equals("NOIR")) {   // DEPART LIGNE ROUGE
+			while(coul.equals("NOIR")) {
+				robot.line(coul);
+				coul = couleur.getColor();
+			}
+			if(coul.equals("BLEU")) {
+				motor.Straight();
+				Delay.msDelay(400);
+				robot.DirectionNoirSud();
+			}
+			if(coul.equals("VERT")) {
+				motor.Straight();
+				Delay.msDelay(400);
+				robot.DirectionNoirNord();
+		
 	}
 }
